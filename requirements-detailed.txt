@@ -1,0 +1,46 @@
+# Python Course Requirements - Detailed Version Specifications
+# This file contains specific versions that are known to work well together
+
+# Python version requirement
+# Python>=3.8,<3.12
+
+# Core Data Science Libraries
+numpy==1.24.3
+pandas==1.5.3
+scipy==1.10.1
+
+# Machine Learning
+scikit-learn==1.2.2
+
+# Data Visualization
+matplotlib==3.7.1
+seaborn==0.12.2
+
+# Jupyter Environment
+jupyter==1.0.0
+ipykernel==6.22.0
+notebook==6.5.4
+jupyterlab==3.6.3
+
+# Additional utilities for enhanced experience
+ipywidgets==8.0.6
+widgetsnbextension==4.0.7
+
+# Optional: Advanced visualization
+plotly==5.15.0
+bokeh==3.1.1
+
+# Optional: Additional ML libraries
+xgboost==1.7.5
+lightgbm==4.0.0
+
+# Development tools
+pytest==7.3.1
+black==23.3.0
+flake8==6.0.0
+
+# System dependencies (if using conda)
+# conda install -c conda-forge jupyterlab
+# conda install -c conda-forge matplotlib
+# conda install -c conda-forge seaborn
+# conda install -c conda-forge scikit-learn
