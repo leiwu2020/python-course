@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_0_Python_Installation_Guide</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,180 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-0:-Python-Installation-Guide">Homework 0: Python Installation Guide<a class="anchor-link" href="#Homework-0:-Python-Installation-Guide">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment will test your understanding of Python installation, environment setup, and basic verification procedures. Complete all exercises and submit your working notebook.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Verify Python installation and version</li>
+<li>Set up a virtual environment</li>
+<li>Install required packages</li>
+<li>Test basic functionality</li>
+<li>Troubleshoot common issues</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Python-Version-Verification-(10-points)">Exercise 1: Python Version Verification (10 points)<a class="anchor-link" href="#Exercise-1:-Python-Version-Verification-(10-points)">¶</a></h2><p><strong>Task:</strong> Check your Python installation and display version information.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Display Python version</li>
+<li>Display Python executable path</li>
+<li>Verify Python version is 3.8 or higher</li>
+<li>Display platform information</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Your code here</span>
+<span class="c1"># Import the sys module to access Python system-specific parameters and functions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="c1"># Import the platform module to access underlying platform's identifying data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
+
+<span class="c1"># TODO: Complete the following tasks:</span>
+<span class="c1"># 1. Print Python version</span>
+<span class="c1"># 2. Print Python executable path</span>
+<span class="c1"># 3. Check if Python version is 3.8 or higher</span>
+<span class="c1"># 4. Print platform information</span>
+
+<span class="c1"># Print the Python version string which includes version number and build information</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Python Version:"</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># get python version</span>
+<span class="c1"># Print a newline character for better formatting, then the Python executable path</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Python Executable:"</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># locate python executable</span>
+<span class="c1"># Print another newline character, then the platform information (OS, version, architecture)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Platform:"</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">())</span>
+<span class="c1"># Print another newline character, then the architecture information (bitness, linkage)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Architecture:"</span><span class="p">,</span> <span class="n">platform</span><span class="o">.</span><span class="n">architecture</span><span class="p">())</span>
+
+<span class="c1"># Version check</span>
+<span class="c1"># Get the version info tuple containing major, minor, micro, releaselevel, and serial</span>
+<span class="n">version_info</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span>
+<span class="c1"># Check if major version is 3 or higher AND minor version is 8 or higher</span>
+<span class="k">if</span> <span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">version_info</span><span class="o">.</span><span class="n">minor</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
+    <span class="c1"># Print success message if version is compatible</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">✅ Python version is compatible (3.8+)"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Print error message if version is too old</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">❌ Python version is too old. Please upgrade to 3.8 or higher."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Python Version: 3.11.13 (main, Jun  5 2025, 08:14:07) [Clang 14.0.6 ]
+
+Python Executable: /opt/miniconda3/envs/python-course/bin/python
+
+Platform: macOS-10.16-x86_64-i386-64bit
+
+Architecture: ('64bit', '')
+
+✅ Python version is compatible (3.8+)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Question 1.1:</strong> What is your Python version and is it compatible with the course requirements?</p>
+<p><strong>Answer:</strong> [Your answer here]</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<hr/>
+<h2 id="Exercise-2:-Virtual-Environment-Setup-(15-points)">Exercise 2: Virtual Environment Setup (15 points)<a class="anchor-link" href="#Exercise-2:-Virtual-Environment-Setup-(15-points)">¶</a></h2><p><strong>Task:</strong> Create and activate a virtual environment for this course.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create a virtual environment named 'python-course-env'</li>
+<li>Activate the virtual environment</li>
+<li>Verify the environment is active</li>
+<li>Display the Python path in the virtual environment</li>
 </ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Note: Virtual environment creation should be done in terminal/command prompt</span>
+<span class="c1"># Run these commands in your terminal:</span>
+
+<span class="c1"># Print instructions for creating a virtual environment</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"To create a virtual environment, run these commands in your terminal:"</span><span class="p">)</span>
+<span class="c1"># Print a newline character for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">1. Create virtual environment:"</span><span class="p">)</span>
+<span class="c1"># Print the command to create a virtual environment using the venv module</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   python -m venv python-course-env"</span><span class="p">)</span>
+
+<span class="c1"># Print another newline character for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2. Activate virtual environment:"</span><span class="p">)</span>
+<span class="c1"># Print instructions for Windows users</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   # On Windows:"</span><span class="p">)</span>
+<span class="c1"># Print the Windows activation command (note the double backslash for escaping)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   python-course-env</span><span class="se">\\</span><span class="s2">Scripts</span><span class="se">\\</span><span class="s2">activate"</span><span class="p">)</span>
+<span class="c1"># Print instructions for macOS/Linux users</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   # On macOS/Linux:"</span><span class="p">)</span>
+<span class="c1"># Print the macOS/Linux activation command</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   source python-course-env/bin/activate"</span><span class="p">)</span>
+
+<span class="c1"># Print another newline character for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">3. Verify activation:"</span><span class="p">)</span>
+<span class="c1"># Print the command to check Python location on macOS/Linux</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   which python  # macOS/Linux"</span><span class="p">)</span>
+<span class="c1"># Print the command to check Python location on Windows</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"   where python  # Windows"</span><span class="p">)</span>
+
+<span class="c1"># After activation, run this cell to verify</span>
+<span class="c1"># Import the sys module to access Python system-specific parameters</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="c1"># Print a newline character, then the current Python executable path</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Current Python path:"</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+<span class="c1"># Check if 'python-course-env' is in the executable path to verify virtual environment is active</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Virtual environment active:"</span><span class="p">,</span> <span class="s1">'python-course-env'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

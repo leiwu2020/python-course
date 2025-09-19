@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_3_Numerical_Data_Analysis_with_NumPy</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,181 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-3:-Numerical-Data-Analysis-with-NumPy">Homework 3: Numerical Data Analysis with NumPy<a class="anchor-link" href="#Homework-3:-Numerical-Data-Analysis-with-NumPy">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of NumPy library for numerical computing, array operations, and mathematical functions.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master NumPy array creation and manipulation</li>
+<li>Perform mathematical operations on arrays</li>
+<li>Use NumPy's statistical functions</li>
+<li>Implement linear algebra operations</li>
+<li>Handle missing data and array reshaping</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Array-Creation-and-Basic-Operations-(20-points)">Exercise 1: Array Creation and Basic Operations (20 points)<a class="anchor-link" href="#Exercise-1:-Array-Creation-and-Basic-Operations-(20-points)">¶</a></h2><p><strong>Task:</strong> Create NumPy arrays and perform basic operations.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create arrays using different methods</li>
+<li>Perform element-wise operations</li>
+<li>Use array indexing and slicing</li>
+<li>Demonstrate broadcasting</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="c1"># Import the NumPy library and give it the alias 'np' for easier use</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Create arrays using different methods</span>
+<span class="c1"># Print a header to indicate the start of array creation examples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== ARRAY CREATION ==="</span><span class="p">)</span>
+
+<span class="c1"># Create arrays from lists</span>
+<span class="c1"># Create a Python list containing integers from 1 to 5</span>
+<span class="n">list_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="c1"># Convert the Python list to a NumPy array using np.array()</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">_______</span>  <span class="c1"># convert list to numpy array</span>
+<span class="c1"># Print the array created from the list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"From list: </span><span class="si">{</span><span class="n">arr1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the type of the array object (numpy.ndarray)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the data type of the elements in the array (int64 by default)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Data type: </span><span class="si">{</span><span class="n">arr1</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create a 2D array from nested lists</span>
+<span class="c1"># Create a nested list representing a 3x3 matrix</span>
+<span class="n">matrix_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="c1"># Convert the nested list to a 2D NumPy array</span>
+<span class="n">arr2d</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1"># convert 2D list to numpy array</span>
+<span class="c1"># Print the 2D array with newline for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2D array:</span><span class="se">\n</span><span class="si">{</span><span class="n">arr2d</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the shape of the array (rows, columns)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create arrays with specific data types</span>
+<span class="c1"># Create a NumPy array with 32-bit integer data type</span>
+<span class="n">arr_int</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1"># convert list [1,2,3] to int32 numpy array</span>
+<span class="c1"># Create a NumPy array with 64-bit float data type</span>
+<span class="n">arr_float</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1"># convert list [1,2,3] to float64 numpy array</span>
+<span class="c1"># Print the integer array with its data type</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Integer array: </span><span class="si">{</span><span class="n">arr_int</span><span class="si">}</span><span class="s2">, dtype: </span><span class="si">{</span><span class="n">arr_int</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the float array with its data type</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Float array: </span><span class="si">{</span><span class="n">arr_float</span><span class="si">}</span><span class="s2">, dtype: </span><span class="si">{</span><span class="n">arr_float</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Array creation functions</span>
+<span class="c1"># Create a 1D array of 5 zeros using np.zeros()</span>
+<span class="n">zeros</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1"># create 5 x 5 numpy array with all zeros</span>
+<span class="c1"># Create a 3x4 array of ones using np.ones() with tuple for shape</span>
+<span class="n">ones</span> <span class="o">=</span> <span class="n">_______</span>  <span class="c1"># create 3 x 4 numpy array with all ones</span>
+<span class="c1"># Create a 2x3 array filled with the value 7 using np.full()</span>
+<span class="n">full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span> <span class="c1"># create 2 x 3 numpy array with full 7s</span>
+<span class="c1"># Print the zeros array</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Zeros: </span><span class="si">{</span><span class="n">zeros</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the ones array with newline for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ones:</span><span class="se">\n</span><span class="si">{</span><span class="n">ones</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the full array with newline for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Full (7s):</span><span class="se">\n</span><span class="si">{</span><span class="n">full</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Range arrays</span>
+<span class="c1"># Create an array with values from 0 to 10 (exclusive) with step 2</span>
+<span class="n">range_arr</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1"># create range [0, 10) with internal 2</span>
+<span class="c1"># Create an array with 5 evenly spaced values from 0 to 1 (inclusive)</span>
+<span class="n">linspace_arr</span> <span class="o">=</span> <span class="n">_______</span>  <span class="c1"># create 5 evenly spaced numbers over the interval from 0 to 1, inclusive.</span>
+<span class="c1"># Print the arange array</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Arange: </span><span class="si">{</span><span class="n">range_arr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the linspace array</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Linspace: </span><span class="si">{</span><span class="n">linspace_arr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Random arrays</span>
+<span class="c1"># Set the random seed to 42 for reproducible results</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># For reproducible results</span>
+<span class="c1"># Create a 3x3 array with random values between 0 and 1</span>
+<span class="n">random_arr</span> <span class="o">=</span> <span class="n">_______</span> <span class="c1">#  create random 3 x 3 array</span>
+<span class="c1"># Print the random array with newline for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Random array:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_arr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Identity matrix</span>
+<span class="c1"># Create a 3x3 identity matrix (1s on diagonal, 0s elsewhere)</span>
+<span class="n">identity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># creates a 3×3 identity matrix</span>
+<span class="c1"># Print the identity matrix with newline for better formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Identity matrix:</span><span class="se">\n</span><span class="si">{</span><span class="n">identity</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 2. Perform element-wise operations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== ELEMENT-WISE OPERATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create sample arrays</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Array 1: </span><span class="si">{</span><span class="n">arr1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Array 2: </span><span class="si">{</span><span class="n">arr2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Perform arithmetic operations</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Arithmetic operations:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Addition: </span><span class="si">{</span><span class="n">________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># add the two array together</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Subtraction: </span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># subtract array 2 from array 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Multiplication: </span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># multiply the two arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Division: </span><span class="si">{</span><span class="n">________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># divide array 1 by array 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Power: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># squares each element of the array</span>
+
+<span class="c1"># Broadcasting examples</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Broadcasting Examples ---"</span><span class="p">)</span>
+
+<span class="c1"># Scalar broadcasting</span>
+<span class="n">scalar</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Array + scalar: </span><span class="si">{</span><span class="n">________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># add array 1 with scaler</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Array * scalar: </span><span class="si">{</span><span class="n">________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># multiply array 1 with scaler</span>
+
+<span class="c1"># Different shapes</span>
+<span class="n">arr_2d</span> <span class="o">=</span> <span class="n">__________</span> <span class="c1"># use number 1 to 6 to create a 2 x 3 numpy array</span>
+<span class="n">arr_1d</span> <span class="o">=</span> <span class="n">__________</span> <span class="c1"># use number 10, 20, 30 to create a 1 x 3 numpy array</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2D array:</span><span class="se">\n</span><span class="si">{</span><span class="n">arr_2d</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"1D array: </span><span class="si">{</span><span class="n">arr_1d</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"2D + 1D (broadcasting):</span><span class="se">\n</span><span class="si">{</span><span class="n">arr_2d</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arr_1d</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create more broadcasting examples</span>
+<span class="n">arr_col</span> <span class="o">=</span> <span class="n">____________</span> <span class="c1"># creates a 2D NumPy array with 3 rows and 1 column with number 1, 2, 3</span>
+<span class="n">arr_row</span> <span class="o">=</span> <span class="n">____________</span> <span class="c1"># creates a 2D NumPy array with 1 row and 3 column with number 10, 20, 30</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Column array:</span><span class="se">\n</span><span class="si">{</span><span class="n">arr_col</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Row array: </span><span class="si">{</span><span class="n">arr_row</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Column + Row (broadcasting):</span><span class="se">\n</span><span class="si">{</span><span class="n">arr_col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arr_row</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

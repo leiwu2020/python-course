@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_7_Plotting_and_Visualization</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,208 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-7:-Plotting-and-Visualization">Homework 7: Plotting and Visualization<a class="anchor-link" href="#Homework-7:-Plotting-and-Visualization">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of data visualization using Matplotlib and Seaborn libraries.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master Matplotlib plotting fundamentals</li>
+<li>Create various types of plots</li>
+<li>Use Seaborn for statistical visualization</li>
+<li>Customize plots and create publication-quality graphics</li>
+<li>Apply visualization best practices</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Basic-Plotting-with-Matplotlib-(20-points)">Exercise 1: Basic Plotting with Matplotlib (20 points)<a class="anchor-link" href="#Exercise-1:-Basic-Plotting-with-Matplotlib-(20-points)">¶</a></h2><p><strong>Task:</strong> Create basic plots using Matplotlib.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create line plots, bar charts, and scatter plots</li>
+<li>Customize plot appearance</li>
+<li>Add labels, titles, and legends</li>
+<li>Use different plot styles</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="c1"># Set style for better-looking plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'seaborn-v0_8'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">"husl"</span><span class="p">)</span>
+
+<span class="c1"># Load sample data</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">iris_df</span><span class="p">[</span><span class="s1">'species'</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
+
+<span class="c1"># 1. Create line plots, bar charts, and scatter plots</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== BASIC PLOTTING ==="</span><span class="p">)</span>
+
+<span class="c1"># Line plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">____________</span><span class="p">)</span> <span class="c1"># creates a line plot of the data in x vs. y1, with label 'sin(x)' and linewidth 2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">____________</span><span class="p">)</span> <span class="c1"># creates a line plot of the data in x vs. y1, with label 'cos(x)' and linewidth 2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Trigonometric Functions'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Bar chart</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span>
+
+<span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">____________</span><span class="p">)</span>  <span class="c1"># creates a bar chart using Matplotlib to visualize the categories distribution (values), with color ['red', 'green', 'blue', 'orange', 'purple']</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Categories'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Values'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Sample Bar Chart'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Add value labels on bars</span>
+<span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> 
+             <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Scatter plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">x_scatter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y_scatter</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x_scatter</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">_________________</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="c1"># creates a scatter plot of x_scatter and y_scatter</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'X values'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Y values'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Sample Scatter Plot'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 2. Customize plot appearance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== PLOT CUSTOMIZATION ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create a customized plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Create subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">_________</span><span class="p">)</span> <span class="c1"># create 1 of the 4 subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">______</span><span class="p">(</span><span class="n">_______</span> <span class="s1">'r-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'sin(x)'</span><span class="p">)</span> <span class="c1"># plot sine wave</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Subplot 1: Sine Wave'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># create 2 of the 4 subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">_____</span><span class="p">(</span><span class="n">_________</span> <span class="n">color</span><span class="o">=</span><span class="s1">'skyblue'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'navy'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># plot bar chart of categories</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Subplot 2: Bar Chart'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># create 3 of the 4 subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">_____</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span> <span class="c1"># plot scatter plot of x_scatter and y_scatter</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Subplot 3: Scatter Plot'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">___________</span><span class="p">)</span> <span class="c1"># create 4 of the 4 subplots</span>
+<span class="c1"># TODO: Create a histogram</span>
+<span class="n">data_hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">_____</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'orange'</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span> <span class="c1"># plot data histogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Subplot 4: Histogram'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3. Use Seaborn for statistical visualization</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== SEABORN STATISTICAL PLOTS ==="</span><span class="p">)</span>
+
+<span class="c1"># Pair plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">__________</span><span class="p">(</span><span class="n">iris_df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'species'</span><span class="p">,</span> <span class="n">diag_kind</span><span class="o">=</span><span class="s1">'hist'</span><span class="p">)</span> <span class="c1"># create Iris Dataset Pair Plot with diagonal plots (usually histograms or KDEs) to explore relationships and distributions.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">'Iris Dataset Pair Plot'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">__________</span><span class="p">(</span><span class="n">_________</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># create heatmap of the correlation matrix</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Correlation Heatmap'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Box plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">iris_melted</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'species'</span><span class="p">],</span> 
+                          <span class="n">value_vars</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">,</span>
+                          <span class="n">var_name</span><span class="o">=</span><span class="s1">'feature'</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">'value'</span><span class="p">)</span>  
+<span class="n">sns</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">_________</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'feature'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'value'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'species'</span><span class="p">)</span> <span class="c1"># create boxplot of iris_melted</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Box Plot of Iris Features by Species'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 4. Create publication-quality graphics</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== PUBLICATION-QUALITY GRAPHICS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create a professional-looking plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Create multiple datasets</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plot with custom styling</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_________</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'sin(x)'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>  <span class="c1"># create plot of sin(x)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_________</span><span class="p">,</span> <span class="s1">'s-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'sin(x + π/4)'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>  <span class="c1"># create plot of sin(x + π/4)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_________</span><span class="p">,</span> <span class="s1">'^-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'sin(x + π/2)'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>  <span class="c1">#  create plot of sin(x + π/2)</span>
+
+<span class="c1"># Customize appearance</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="s1">'x (radians)'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span> <span class="c1"># add x label</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span> <span class="c1"># add y label</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="s1">'Phase-Shifted Sine Waves'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span> <span class="c1"># add title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span> <span class="c1"># add legend</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">_________</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span> <span class="c1"># add grid</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="c1"># Add annotations</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">'Peak'</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">'-&gt;'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"All plotting exercises completed!"</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

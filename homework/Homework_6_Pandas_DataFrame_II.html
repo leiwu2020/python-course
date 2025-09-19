@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_6_Pandas_DataFrame_II</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,821 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-6:-Pandas-DataFrame-II">Homework 6: Pandas DataFrame II<a class="anchor-link" href="#Homework-6:-Pandas-DataFrame-II">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of advanced Pandas DataFrame operations including grouping, merging, and data transformation.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master DataFrame grouping and aggregation</li>
+<li>Perform data merging and joining</li>
+<li>Use pivot tables and reshaping</li>
+<li>Apply advanced data transformation techniques</li>
+<li>Handle time series data</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Grouping-and-Aggregation-(20-points)">Exercise 1: Grouping and Aggregation (20 points)<a class="anchor-link" href="#Exercise-1:-Grouping-and-Aggregation-(20-points)">¶</a></h2><p><strong>Task:</strong> Perform grouping and aggregation operations on DataFrames.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Group data by different criteria</li>
+<li>Apply aggregation functions</li>
+<li>Use groupby operations</li>
+<li>Demonstrate advanced grouping techniques</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="c1"># Import pandas library for data manipulation and analysis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># Import numpy library for numerical operations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="c1"># Import matplotlib for plotting</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="c1"># Import seaborn for statistical data visualization</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Set random seed for reproducible results</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># set random seed to 42</span>
+
+<span class="c1"># 1. Create sample datasets for analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== CREATING SAMPLE DATASETS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create sales data dictionary with various fields</span>
+<span class="n">sales_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Date'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">'2023-01-01'</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">'D'</span><span class="p">),</span> <span class="c1"># create 100 days of dates</span>
+    <span class="s1">'Product'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'Laptop'</span><span class="p">,</span> <span class="s1">'Phone'</span><span class="p">,</span> <span class="s1">'Tablet'</span><span class="p">,</span> <span class="s1">'Headphones'</span><span class="p">],</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># choose 100 random products</span>
+    <span class="s1">'Category'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">],</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># choose 100 random categories</span>
+    <span class="s1">'Region'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'North'</span><span class="p">,</span> <span class="s1">'South'</span><span class="p">,</span> <span class="s1">'East'</span><span class="p">,</span> <span class="s1">'West'</span><span class="p">],</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># choose 100 random regions</span>
+    <span class="s1">'Salesperson'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="s1">'Bob'</span><span class="p">,</span> <span class="s1">'Charlie'</span><span class="p">,</span> <span class="s1">'Diana'</span><span class="p">],</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># choose 100 random salespeople</span>
+    <span class="s1">'Quantity'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># generate 100 random quantities between 1 and 10</span>
+    <span class="s1">'Price'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># generate 100 random prices between 50 and 1000</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># generate 100 random ratings between 3.0 and 5.0</span>
+<span class="p">}</span>
+
+<span class="c1"># Create DataFrame from sales data dictionary</span>
+<span class="n">df_sales</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sales_data</span><span class="p">)</span>
+<span class="c1"># Calculate revenue by multiplying quantity and price</span>
+<span class="n">df_sales</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_sales</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># multiply 'Quantity' and 'Price'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sales DataFrame shape: </span><span class="si">{</span><span class="n">df_sales</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First 5 rows:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sales</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Create employee data dictionary</span>
+<span class="n">employee_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Name'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="s1">'Bob'</span><span class="p">,</span> <span class="s1">'Charlie'</span><span class="p">,</span> <span class="s1">'Diana'</span><span class="p">],</span>
+    <span class="s1">'Department'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Sales'</span><span class="p">,</span> <span class="s1">'Sales'</span><span class="p">,</span> <span class="s1">'Marketing'</span><span class="p">,</span> <span class="s1">'Sales'</span><span class="p">],</span>
+    <span class="s1">'Experience_Years'</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="s1">'Salary'</span><span class="p">:</span> <span class="p">[</span><span class="mi">75000</span><span class="p">,</span> <span class="mi">65000</span><span class="p">,</span> <span class="mi">80000</span><span class="p">,</span> <span class="mi">55000</span><span class="p">],</span>
+    <span class="s1">'Hire_Date'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">'2018-03-15'</span><span class="p">,</span> <span class="s1">'2020-06-20'</span><span class="p">,</span> <span class="s1">'2016-01-10'</span><span class="p">,</span> <span class="s1">'2021-09-05'</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="c1"># Create DataFrame from employee data dictionary</span>
+<span class="n">df_employees</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">employee_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Employee DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_employees</span><span class="p">)</span>
+
+<span class="c1"># 2. Basic Grouping Operations</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== BASIC GROUPING OPERATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Group by single column</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Grouping by Product:"</span><span class="p">)</span>
+<span class="c1"># Group the sales DataFrame by the 'Product' column</span>
+<span class="n">product_groups</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># group by 'Product'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of groups: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">product_groups</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Group names: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">product_groups</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Basic aggregation</span>
+<span class="c1"># Apply aggregation functions to grouped data</span>
+<span class="n">product_summary</span> <span class="o">=</span> <span class="n">product_groups</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">'Quantity'</span><span class="p">:</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'sum' for quantity</span>
+    <span class="s1">'Revenue'</span><span class="p">:</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'sum' for revenue</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="s1">'__________'</span> <span class="c1"># use 'mean' for customer rating</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Product Summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">product_summary</span><span class="p">)</span>
+
+<span class="c1"># TODO: Group by multiple columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Grouping by Product and Region:"</span><span class="p">)</span>
+<span class="c1"># Group by multiple columns using a list</span>
+<span class="n">multi_groups</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">])</span> <span class="c1"># group by 'Product' and 'Region'</span>
+<span class="n">multi_summary</span> <span class="o">=</span> <span class="n">multi_groups</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">'Quantity'</span><span class="p">:</span> <span class="s1">'sum'</span><span class="p">,</span>
+    <span class="s1">'Revenue'</span><span class="p">:</span> <span class="s1">'sum'</span><span class="p">,</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="s1">'mean'</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Multi-group Summary (first 10 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multi_summary</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># 3. Advanced Aggregation Functions</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== ADVANCED AGGREGATION FUNCTIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Custom aggregation functions</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">custom_stats</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s1">'count'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">),</span>
+        <span class="s1">'total_revenue'</span><span class="p">:</span> <span class="n">group</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="s1">'avg_rating'</span><span class="p">:</span> <span class="n">group</span><span class="p">[</span><span class="s1">'Customer_Rating'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">'max_quantity'</span><span class="p">:</span> <span class="n">group</span><span class="p">[</span><span class="s1">'Quantity'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+        <span class="s1">'min_price'</span><span class="p">:</span> <span class="n">group</span><span class="p">[</span><span class="s1">'Price'</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="p">})</span>
+
+<span class="c1"># Apply custom aggregation</span>
+<span class="c1"># Group by 'Region' and apply the custom_stats function</span>
+<span class="n">region_stats</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">custom_stats</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># group by 'Region'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Custom Statistics by Region:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">region_stats</span><span class="p">)</span>
+
+<span class="c1"># TODO: Multiple aggregation functions</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Multiple Aggregation Functions:"</span><span class="p">)</span>
+<span class="c1"># Define multiple aggregation functions for each column</span>
+<span class="n">agg_functions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Quantity'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'sum', 'mean', 'std'</span>
+    <span class="s1">'Revenue'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'sum', 'mean', 'max'</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># use 'mean', 'min', 'max'</span>
+<span class="p">}</span>
+
+<span class="c1"># Apply multiple aggregation functions grouped by 'Category'</span>
+<span class="n">multi_agg</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_functions</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># group by 'Category'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multi_agg</span><span class="p">)</span>
+
+<span class="c1"># 4. Groupby with Transform and Filter</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== GROUPBY WITH TRANSFORM AND FILTER ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Transform operations</span>
+<span class="c1"># Add a new column with total revenue per product group</span>
+<span class="n">df_sales</span><span class="p">[</span><span class="s1">'Revenue_Per_Group'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># group by 'Product', transform 'Revenue' with 'sum'</span>
+<span class="c1"># Add a new column with average rating per region</span>
+<span class="n">df_sales</span><span class="p">[</span><span class="s1">'Avg_Rating_Per_Region'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># group by 'Region', transform 'Customer_Rating' with 'mean'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame with transform operations (first 5 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sales</span><span class="p">[[</span><span class="s1">'Product'</span><span class="p">,</span> <span class="s1">'Revenue'</span><span class="p">,</span> <span class="s1">'Revenue_Per_Group'</span><span class="p">,</span> <span class="s1">'Region'</span><span class="p">,</span> <span class="s1">'Customer_Rating'</span><span class="p">,</span> <span class="s1">'Avg_Rating_Per_Region'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Filter operations</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">high_revenue_groups</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">group</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">__________</span> <span class="c1"># return True if sum &gt; 5000</span>
+
+<span class="c1"># Filter groups where total revenue is greater than 5000</span>
+<span class="n">high_revenue</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">high_revenue_groups</span><span class="p">)</span> <span class="c1"># group by 'Product'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Products with total revenue &gt; 5000:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unique products: </span><span class="si">{</span><span class="n">high_revenue</span><span class="p">[</span><span class="s1">'Product'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Number of records: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">high_revenue</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 5. Pivot Tables</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== PIVOT TABLES ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create pivot tables</span>
+<span class="c1"># Create a pivot table showing quantity by product and region</span>
+<span class="n">pivot_quantity</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Quantity' as values</span>
+    <span class="n">index</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Product' as index</span>
+    <span class="n">columns</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Region' as columns</span>
+    <span class="n">aggfunc</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'sum' as aggregation function</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use 0 as fill value</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Quantity by Product and Region:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pivot_quantity</span><span class="p">)</span>
+
+<span class="c1"># TODO: Multi-level pivot table</span>
+<span class="c1"># Create a multi-level pivot table with multiple values and indices</span>
+<span class="n">pivot_multi</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Quantity' and 'Revenue' as values</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Product' and 'Category' as index</span>
+    <span class="n">columns</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Region' as columns</span>
+    <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span><span class="s1">'Quantity'</span><span class="p">:</span> <span class="s1">'sum'</span><span class="p">,</span> <span class="s1">'Revenue'</span><span class="p">:</span> <span class="s1">'mean'</span><span class="p">},</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use 0 as fill value</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Multi-level Pivot Table (first 5 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pivot_multi</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 6. Data Merging and Joining</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATA MERGING AND JOINING ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Merge sales data with employee data</span>
+<span class="c1"># First, create a mapping from salesperson to employee data</span>
+<span class="c1"># Set 'Name' as index and select specific columns</span>
+<span class="n">salesperson_mapping</span> <span class="o">=</span> <span class="n">df_employees</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[[</span><span class="s1">'Department'</span><span class="p">,</span> <span class="s1">'Experience_Years'</span><span class="p">,</span> <span class="s1">'Salary'</span><span class="p">]]</span> <span class="c1"># use 'Name' as index</span>
+<span class="c1"># Merge sales data with employee data using left join</span>
+<span class="n">df_sales_merged</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">salesperson_mapping</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Salesperson' as left_on, 'left' as how</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sales data merged with employee data (first 5 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sales_merged</span><span class="p">[[</span><span class="s1">'Salesperson'</span><span class="p">,</span> <span class="s1">'Department'</span><span class="p">,</span> <span class="s1">'Experience_Years'</span><span class="p">,</span> <span class="s1">'Salary'</span><span class="p">,</span> <span class="s1">'Revenue'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Different types of joins</span>
+<span class="c1"># Create a small dataset for demonstration</span>
+<span class="n">df_products</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Product'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Laptop'</span><span class="p">,</span> <span class="s1">'Phone'</span><span class="p">,</span> <span class="s1">'Tablet'</span><span class="p">,</span> <span class="s1">'Headphones'</span><span class="p">,</span> <span class="s1">'Mouse'</span><span class="p">],</span>
+    <span class="s1">'Category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">],</span>
+    <span class="s1">'Cost'</span><span class="p">:</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Products DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_products</span><span class="p">)</span>
+
+<span class="c1"># Inner join - only matching records from both DataFrames</span>
+<span class="n">inner_join</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_products</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Product' as on, 'inner' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Inner join shape: </span><span class="si">{</span><span class="n">inner_join</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Left join - all records from left DataFrame</span>
+<span class="n">left_join</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_products</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Product' as on, 'left' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Left join shape: </span><span class="si">{</span><span class="n">left_join</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Right join - all records from right DataFrame</span>
+<span class="n">right_join</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_products</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Product' as on, 'right' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Right join shape: </span><span class="si">{</span><span class="n">right_join</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 7. Data Reshaping</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATA RESHAPING ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Melt operation</span>
+<span class="c1"># Transform wide format to long format</span>
+<span class="n">melted_data</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Date', 'Product', 'Region' as id_vars</span>
+    <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Quantity', 'Revenue', 'Customer_Rating' as value_vars</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Metric' as var_name</span>
+    <span class="n">value_name</span><span class="o">=</span><span class="s1">'__________'</span> <span class="c1"># use 'Value' as value_name</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Melted data (first 10 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">melted_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># TODO: Pivot operation (reverse of melt)</span>
+<span class="c1"># Transform long format back to wide format</span>
+<span class="n">pivoted_data</span> <span class="o">=</span> <span class="n">melted_data</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Date', 'Product', 'Region' as index</span>
+    <span class="n">columns</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Metric' as columns</span>
+    <span class="n">values</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Value' as values</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use 0 as fill_value</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Pivoted data (first 5 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pivoted_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 8. Time Series Operations</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== TIME SERIES OPERATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Set date as index</span>
+<span class="c1"># Set the 'Date' column as the index for time series operations</span>
+<span class="n">df_sales_time</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Date' as index</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame with Date as index:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sales_time</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Resample by different time periods</span>
+<span class="c1"># Resample revenue data by different time periods</span>
+<span class="n">daily_revenue</span> <span class="o">=</span> <span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># use 'D' for daily</span>
+<span class="n">weekly_revenue</span> <span class="o">=</span> <span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># use 'W' for weekly</span>
+<span class="n">monthly_revenue</span> <span class="o">=</span> <span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># use 'M' for monthly</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Daily Revenue (first 5 days):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">daily_revenue</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Weekly Revenue:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">weekly_revenue</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Monthly Revenue:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">monthly_revenue</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Rolling window operations</span>
+<span class="c1"># Calculate rolling averages with different window sizes</span>
+<span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue_7day_avg'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># use 7 for 7-day window</span>
+<span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue_30day_avg'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sales_time</span><span class="p">[</span><span class="s1">'Revenue'</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># use 30 for 30-day window</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">DataFrame with rolling averages (last 5 rows):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_sales_time</span><span class="p">[[</span><span class="s1">'Revenue'</span><span class="p">,</span> <span class="s1">'Revenue_7day_avg'</span><span class="p">,</span> <span class="s1">'Revenue_30day_avg'</span><span class="p">]]</span><span class="o">.</span><span class="n">tail</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Question 1.1:</strong> What is the difference between <code>groupby().agg()</code> and <code>groupby().apply()</code>?</p>
+<p><strong>Answer:</strong> [Your answer here]</p>
+<p><strong>Question 1.2:</strong> When would you use <code>transform()</code> vs <code>filter()</code> in groupby operations?</p>
+<p><strong>Answer:</strong> [Your answer here]</p>
+<p><strong>Question 1.3:</strong> What are the advantages of using pivot tables over groupby operations?</p>
+<p><strong>Answer:</strong> [Your answer here]</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<hr/>
+<h2 id="Exercise-2:-Data-Merging-and-Joining-(20-points)">Exercise 2: Data Merging and Joining (20 points)<a class="anchor-link" href="#Exercise-2:-Data-Merging-and-Joining-(20-points)">¶</a></h2><p><strong>Task:</strong> Perform various data merging and joining operations.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Merge DataFrames using different join types</li>
+<li>Handle missing values in merged data</li>
+<li>Use different merge keys and strategies</li>
+<li>Demonstrate complex merging scenarios</li>
 </ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following merging exercises</span>
+
+<span class="c1"># 1. Create additional datasets for merging</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== CREATING DATASETS FOR MERGING ==="</span><span class="p">)</span>
+
+<span class="c1"># Customer data dictionary with customer information</span>
+<span class="n">customer_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Customer_ID'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s1">'Name'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Alice Johnson'</span><span class="p">,</span> <span class="s1">'Bob Smith'</span><span class="p">,</span> <span class="s1">'Charlie Brown'</span><span class="p">,</span> <span class="s1">'Diana Prince'</span><span class="p">,</span> <span class="s1">'Eve Wilson'</span><span class="p">,</span> <span class="s1">'Frank Miller'</span><span class="p">],</span>
+    <span class="s1">'Email'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'alice@email.com'</span><span class="p">,</span> <span class="s1">'bob@email.com'</span><span class="p">,</span> <span class="s1">'charlie@email.com'</span><span class="p">,</span> <span class="s1">'diana@email.com'</span><span class="p">,</span> <span class="s1">'eve@email.com'</span><span class="p">,</span> <span class="s1">'frank@email.com'</span><span class="p">],</span>
+    <span class="s1">'City'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'New York'</span><span class="p">,</span> <span class="s1">'Los Angeles'</span><span class="p">,</span> <span class="s1">'Chicago'</span><span class="p">,</span> <span class="s1">'Houston'</span><span class="p">,</span> <span class="s1">'Phoenix'</span><span class="p">,</span> <span class="s1">'Philadelphia'</span><span class="p">],</span>
+    <span class="s1">'Registration_Date'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">'2022-01-15'</span><span class="p">,</span> <span class="s1">'2022-03-20'</span><span class="p">,</span> <span class="s1">'2022-02-10'</span><span class="p">,</span> <span class="s1">'2022-04-05'</span><span class="p">,</span> <span class="s1">'2022-05-12'</span><span class="p">,</span> <span class="s1">'2022-06-18'</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="c1"># Create customers DataFrame</span>
+<span class="n">df_customers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use customer_data</span>
+
+<span class="c1"># Order data dictionary with order information</span>
+<span class="n">order_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Order_ID'</span><span class="p">:</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">108</span><span class="p">],</span>
+    <span class="s1">'Customer_ID'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s1">'Product'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Laptop'</span><span class="p">,</span> <span class="s1">'Phone'</span><span class="p">,</span> <span class="s1">'Tablet'</span><span class="p">,</span> <span class="s1">'Headphones'</span><span class="p">,</span> <span class="s1">'Laptop'</span><span class="p">,</span> <span class="s1">'Phone'</span><span class="p">,</span> <span class="s1">'Tablet'</span><span class="p">,</span> <span class="s1">'Headphones'</span><span class="p">],</span>
+    <span class="s1">'Order_Date'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span><span class="s1">'2023-01-15'</span><span class="p">,</span> <span class="s1">'2023-01-20'</span><span class="p">,</span> <span class="s1">'2023-02-01'</span><span class="p">,</span> <span class="s1">'2023-02-10'</span><span class="p">,</span> <span class="s1">'2023-02-15'</span><span class="p">,</span> <span class="s1">'2023-03-01'</span><span class="p">,</span> <span class="s1">'2023-03-10'</span><span class="p">,</span> <span class="s1">'2023-03-20'</span><span class="p">]),</span>
+    <span class="s1">'Amount'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">140</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Create orders DataFrame</span>
+<span class="n">df_orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use order_data</span>
+
+<span class="c1"># Product details dictionary with product information</span>
+<span class="n">product_details</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Product'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Laptop'</span><span class="p">,</span> <span class="s1">'Phone'</span><span class="p">,</span> <span class="s1">'Tablet'</span><span class="p">,</span> <span class="s1">'Headphones'</span><span class="p">,</span> <span class="s1">'Mouse'</span><span class="p">,</span> <span class="s1">'Keyboard'</span><span class="p">],</span>
+    <span class="s1">'Category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Electronics'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">,</span> <span class="s1">'Accessories'</span><span class="p">],</span>
+    <span class="s1">'Brand'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'TechCorp'</span><span class="p">,</span> <span class="s1">'PhoneInc'</span><span class="p">,</span> <span class="s1">'TabletPro'</span><span class="p">,</span> <span class="s1">'SoundMax'</span><span class="p">,</span> <span class="s1">'ClickTech'</span><span class="p">,</span> <span class="s1">'TypeFast'</span><span class="p">],</span>
+    <span class="s1">'Warranty_Years'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="s1">'Weight_kg'</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Create products DataFrame</span>
+<span class="n">df_products</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use product_details</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Customers DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_customers</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Orders DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_orders</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Products DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_products</span><span class="p">)</span>
+
+<span class="c1"># 2. Basic Merging Operations</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== BASIC MERGING OPERATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Inner join</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Inner Join - Customers and Orders:"</span><span class="p">)</span>
+<span class="c1"># Merge customers and orders using inner join on Customer_ID</span>
+<span class="n">inner_merge</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_orders</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'inner' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">inner_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">inner_merge</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Left join</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Left Join - Customers and Orders:"</span><span class="p">)</span>
+<span class="c1"># Merge customers and orders using left join on Customer_ID</span>
+<span class="n">left_merge</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_orders</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'left' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">left_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing values in Order_ID: </span><span class="si">{</span><span class="n">left_merge</span><span class="p">[</span><span class="s1">'Order_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Right join</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Right Join - Orders and Customers:"</span><span class="p">)</span>
+<span class="c1"># Merge orders and customers using right join on Customer_ID</span>
+<span class="n">right_merge</span> <span class="o">=</span> <span class="n">df_orders</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_customers</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'right' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">right_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Outer join</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Outer Join - Customers and Orders:"</span><span class="p">)</span>
+<span class="c1"># Merge customers and orders using outer join on Customer_ID</span>
+<span class="n">outer_merge</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_orders</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'outer' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">outer_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing values in Customer_ID: </span><span class="si">{</span><span class="n">outer_merge</span><span class="p">[</span><span class="s1">'Customer_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 3. Advanced Merging Scenarios</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== ADVANCED MERGING SCENARIOS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Merge with different column names</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Merging with different column names:"</span><span class="p">)</span>
+<span class="c1"># Rename Product column to Product_Name in orders DataFrame</span>
+<span class="n">df_orders_renamed</span> <span class="o">=</span> <span class="n">df_orders</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'Product'</span><span class="p">:</span> <span class="s1">'__________'</span><span class="p">})</span> <span class="c1"># rename 'Product' to 'Product_Name'</span>
+<span class="c1"># Merge using different column names</span>
+<span class="n">merge_different_cols</span> <span class="o">=</span> <span class="n">df_orders_renamed</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">df_products</span><span class="p">,</span> 
+    <span class="n">left_on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Product_Name' as left_on</span>
+    <span class="n">right_on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'Product' as right_on</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span> <span class="c1"># use 'left' as how</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">merge_different_cols</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">merge_different_cols</span><span class="p">[[</span><span class="s1">'Order_ID'</span><span class="p">,</span> <span class="s1">'Product_Name'</span><span class="p">,</span> <span class="s1">'Brand'</span><span class="p">,</span> <span class="s1">'Category'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Merge with multiple keys</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Merging with multiple keys:"</span><span class="p">)</span>
+<span class="c1"># Create a dataset with multiple keys</span>
+<span class="n">df_orders_multi</span> <span class="o">=</span> <span class="n">df_orders</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># Extract month from Order_Date</span>
+<span class="n">df_orders_multi</span><span class="p">[</span><span class="s1">'Order_Month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_orders_multi</span><span class="p">[</span><span class="s1">'Order_Date'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'month'</span>
+
+<span class="n">df_customers_multi</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># Extract month from Registration_Date</span>
+<span class="n">df_customers_multi</span><span class="p">[</span><span class="s1">'Registration_Month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_customers_multi</span><span class="p">[</span><span class="s1">'Registration_Date'</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'month'</span>
+
+<span class="c1"># Merge using multiple keys</span>
+<span class="n">multi_key_merge</span> <span class="o">=</span> <span class="n">df_orders_multi</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">df_customers_multi</span><span class="p">,</span> 
+    <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'Customer_ID' and 'Order_Month'</span>
+    <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span> <span class="c1"># use 'left' as how</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">multi_key_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">multi_key_merge</span><span class="p">[[</span><span class="s1">'Order_ID'</span><span class="p">,</span> <span class="s1">'Customer_ID'</span><span class="p">,</span> <span class="s1">'Order_Month'</span><span class="p">,</span> <span class="s1">'Name'</span><span class="p">,</span> <span class="s1">'City'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># 4. Handling Missing Values in Merged Data</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== HANDLING MISSING VALUES ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Identify and handle missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Missing values analysis:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Left merge missing values:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">left_merge</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># TODO: Fill missing values</span>
+<span class="n">left_merge_filled</span> <span class="o">=</span> <span class="n">left_merge</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># Fill missing Order_ID values with 0</span>
+<span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Order_ID'</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Order_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0</span>
+<span class="c1"># Fill missing Product values with 'No Order'</span>
+<span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Product'</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Product'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'No Order'</span>
+<span class="c1"># Fill missing Amount values with 0</span>
+<span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Amount'</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_merge_filled</span><span class="p">[</span><span class="s1">'Amount'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">After filling missing values:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">left_merge_filled</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># 5. Complex Merging Scenarios</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== COMPLEX MERGING SCENARIOS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Merge multiple DataFrames</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Merging multiple DataFrames:"</span><span class="p">)</span>
+<span class="c1"># First merge: orders with customers</span>
+<span class="n">orders_customers</span> <span class="o">=</span> <span class="n">df_orders</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_customers</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'left' as how</span>
+
+<span class="c1"># Second merge: add product details</span>
+<span class="n">complete_data</span> <span class="o">=</span> <span class="n">orders_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_products</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Product' as on, 'left' as how</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Complete merged data shape: </span><span class="si">{</span><span class="n">complete_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Columns: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">complete_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">complete_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># TODO: Merge with aggregation</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Merging with aggregation:"</span><span class="p">)</span>
+<span class="c1"># Aggregate orders by customer</span>
+<span class="n">customer_totals</span> <span class="o">=</span> <span class="n">df_orders</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span> <span class="c1"># use 'Customer_ID'</span>
+    <span class="s1">'Order_ID'</span><span class="p">:</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'count'</span>
+    <span class="s1">'Amount'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># use 'sum', 'mean', 'max'</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Flatten column names</span>
+<span class="n">customer_totals</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'_'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">customer_totals</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">customer_totals</span> <span class="o">=</span> <span class="n">customer_totals</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># Merge with customer data</span>
+<span class="n">customer_summary</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">customer_totals</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Customer_ID' as on, 'left' as how</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Customer summary with order statistics:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">customer_summary</span><span class="p">)</span>
+
+<span class="c1"># 6. Merge Performance and Best Practices</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== MERGE PERFORMANCE AND BEST PRACTICES ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Demonstrate merge performance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># Large dataset simulation</span>
+<span class="n">large_customers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_customers</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">large_orders</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_orders</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Large datasets created:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Customers shape: </span><span class="si">{</span><span class="n">large_customers</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Orders shape: </span><span class="si">{</span><span class="n">large_orders</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Time the merge operation</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">large_merge</span> <span class="o">=</span> <span class="n">large_customers</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">large_orders</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'Customer_ID'</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'inner'</span><span class="p">)</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Merge completed in </span><span class="si">{</span><span class="n">end_time</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Result shape: </span><span class="si">{</span><span class="n">large_merge</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Memory usage optimization</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Memory optimization tips:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original customers memory usage: </span><span class="si">{</span><span class="n">df_customers</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original orders memory usage: </span><span class="si">{</span><span class="n">df_orders</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">)</span>
+
+<span class="c1"># Convert to appropriate data types</span>
+<span class="n">df_customers_optimized</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_customers_optimized</span><span class="p">[</span><span class="s1">'Customer_ID'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_customers_optimized</span><span class="p">[</span><span class="s1">'Customer_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int32'</span><span class="p">)</span>
+<span class="n">df_customers_optimized</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_customers_optimized</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'category'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Optimized customers memory usage: </span><span class="si">{</span><span class="n">df_customers_optimized</span><span class="o">.</span><span class="n">memory_usage</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> KB"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<hr/>
+<h2 id="Exercise-3:-Data-Visualization-and-Analysis-(20-points)">Exercise 3: Data Visualization and Analysis (20 points)<a class="anchor-link" href="#Exercise-3:-Data-Visualization-and-Analysis-(20-points)">¶</a></h2><p><strong>Task:</strong> Create visualizations to analyze the grouped and merged data.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create charts for grouped data</li>
+<li>Visualize merged data relationships</li>
+<li>Use appropriate plot types for different data types</li>
+<li>Customize plots for better presentation</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following visualization exercises</span>
+
+<span class="c1"># 1. Set up plotting style</span>
+<span class="c1"># Set matplotlib style for better-looking plots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'seaborn-v0_8'</span>
+<span class="c1"># Set seaborn color palette</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">"__________"</span><span class="p">)</span> <span class="c1"># use "husl"</span>
+
+<span class="c1"># 2. Visualize Grouped Data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== VISUALIZING GROUPED DATA ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create subplots for different analyses</span>
+<span class="c1"># Create a 2x2 subplot layout with specified figure size</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 2, 2, 15, 12</span>
+
+<span class="c1"># Revenue by Product</span>
+<span class="c1"># Group sales data by Product and sum Revenue, sort in ascending order</span>
+<span class="n">product_revenue</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'Product', 'Revenue', True</span>
+<span class="c1"># Create horizontal bar chart</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">product_revenue</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">product_revenue</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'skyblue'</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Total Revenue by Product'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Revenue ($)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0.3</span>
+
+<span class="c1"># Average Rating by Region</span>
+<span class="c1"># Group sales data by Region and calculate mean Customer_Rating, sort in descending order</span>
+<span class="n">region_rating</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'Region', 'Customer_Rating', False</span>
+<span class="c1"># Create vertical bar chart</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">region_rating</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">region_rating</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'lightcoral'</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Average Customer Rating by Region'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Average Rating'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 5</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Quantity distribution by Category</span>
+<span class="c1"># Group sales data by Category and sum Quantity</span>
+<span class="n">category_quantity</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># use 'Category', 'Quantity'</span>
+<span class="c1"># Create pie chart</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">category_quantity</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">category_quantity</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">'</span><span class="si">%1.1f%%</span><span class="s1">'</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 90</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Quantity Distribution by Category'</span><span class="p">)</span>
+
+<span class="c1"># Revenue trend over time</span>
+<span class="c1"># Group sales data by Date and sum Revenue</span>
+<span class="n">daily_revenue</span> <span class="o">=</span> <span class="n">df_sales</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># use 'Date', 'Revenue'</span>
+<span class="c1"># Create line plot</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">daily_revenue</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">daily_revenue</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'o', 2, 4</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Daily Revenue Trend'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Date'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Revenue ($)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 45</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Adjust layout to prevent overlapping</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3. Visualize Merged Data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== VISUALIZING MERGED DATA ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create visualizations for merged data</span>
+<span class="c1"># Create another 2x2 subplot layout</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 2, 2, 15, 12</span>
+
+<span class="c1"># Customer order count</span>
+<span class="c1"># Group complete data by Name and count Order_ID, sort in ascending order</span>
+<span class="n">customer_orders</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'Name', 'Order_ID', True</span>
+<span class="c1"># Create horizontal bar chart</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">customer_orders</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">customer_orders</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'lightgreen'</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Number of Orders by Customer'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Number of Orders'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Revenue by City</span>
+<span class="c1"># Group complete data by City and sum Amount, sort in descending order</span>
+<span class="n">city_revenue</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'City', 'Amount', False</span>
+<span class="c1"># Create vertical bar chart</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">city_revenue</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">city_revenue</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'orange'</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Total Revenue by City'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Revenue ($)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Product performance by brand</span>
+<span class="c1"># Group complete data by Brand and aggregate Amount with sum and count</span>
+<span class="n">brand_performance</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="c1"># use 'Brand', 'Amount', 'sum', 'count'</span>
+<span class="c1"># Calculate average amount per order</span>
+<span class="n">brand_performance</span><span class="p">[</span><span class="s1">'avg_amount'</span><span class="p">]</span> <span class="o">=</span> <span class="n">brand_performance</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">]</span> <span class="o">/</span> <span class="n">brand_performance</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># use 'sum', 'count'</span>
+
+<span class="c1"># Create scatter plot</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brand_performance</span><span class="p">[</span><span class="s1">'count'</span><span class="p">],</span> <span class="n">brand_performance</span><span class="p">[</span><span class="s1">'avg_amount'</span><span class="p">],</span> 
+                            <span class="n">s</span><span class="o">=</span><span class="n">brand_performance</span><span class="p">[</span><span class="s1">'sum'</span><span class="p">]</span><span class="o">/</span><span class="n">__________</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">brand_performance</span><span class="p">[</span><span class="s1">'sum'</span><span class="p">],</span> <span class="c1"># use 10, 0.7</span>
+                            <span class="n">cmap</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'viridis'</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Brand Performance: Orders vs Average Amount'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Number of Orders'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Average Amount per Order ($)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Add colorbar</span>
+<span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">'Total Revenue ($)'</span><span class="p">)</span>
+
+<span class="c1"># Customer registration timeline</span>
+<span class="c1"># Set Registration_Date as index, resample by month, get size, and calculate cumulative sum</span>
+<span class="n">customer_timeline</span> <span class="o">=</span> <span class="n">df_customers</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="c1"># use 'Registration_Date', 'M'</span>
+<span class="c1"># Create line plot</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">customer_timeline</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">customer_timeline</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'o', 2, 6</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Cumulative Customer Registrations'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Date'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Cumulative Customers'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 4. Advanced Visualizations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== ADVANCED VISUALIZATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create heatmap for correlation analysis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 12, 8</span>
+
+<span class="c1"># Calculate correlation matrix for numerical columns</span>
+<span class="c1"># Select only numerical columns from complete_data</span>
+<span class="n">numerical_cols</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">__________</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span> <span class="c1"># use np.number</span>
+<span class="c1"># Calculate correlation matrix</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">complete_data</span><span class="p">[</span><span class="n">numerical_cols</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Create heatmap</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use True, 'coolwarm', 0</span>
+            <span class="n">square</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">"shrink"</span><span class="p">:</span> <span class="n">__________</span><span class="p">})</span> <span class="c1"># use True, 0.5, 0.8</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Correlation Matrix of Numerical Variables'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># TODO: Create box plot for product analysis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 12, 6</span>
+<span class="c1"># Create box plot with Product on x-axis, Amount on y-axis, and Category as hue</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">complete_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'Product', 'Amount', 'Category'</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Product Amount Distribution by Category'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Product'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Amount ($)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 45</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Category'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># TODO: Create time series analysis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 15, 8</span>
+
+<span class="c1"># Create time series data</span>
+<span class="c1"># Set Order_Date as index, resample by week, and aggregate multiple columns</span>
+<span class="n">time_series_data</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span> <span class="c1"># use 'Order_Date', 'W'</span>
+    <span class="s1">'Amount'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'sum', 'mean', 'count'</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="s1">'__________'</span> <span class="c1"># use 'mean'</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Flatten column names</span>
+<span class="n">time_series_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'_'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">time_series_data</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="c1"># Create subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 3, 1, 15, 12</span>
+
+<span class="c1"># Weekly revenue</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_series_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">time_series_data</span><span class="p">[</span><span class="s1">'Amount_sum'</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'o', 2, 'blue'</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Weekly Total Revenue'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Revenue ($)'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Weekly average amount</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_series_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">time_series_data</span><span class="p">[</span><span class="s1">'Amount_mean'</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 's', 2, 'green'</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Weekly Average Amount per Order'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Average Amount ($)'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Weekly order count</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_series_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">time_series_data</span><span class="p">[</span><span class="s1">'Amount_count'</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use '^', 2, 'red'</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Weekly Order Count'</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Date'</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Number of Orders'</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 5. Interactive Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== INTERACTIVE ANALYSIS ==="</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create summary statistics</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Summary Statistics for Complete Dataset:"</span><span class="p">)</span>
+<span class="c1"># Calculate and display total revenue</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Revenue: $</span><span class="si">{</span><span class="n">complete_data</span><span class="p">[</span><span class="s1">'Amount'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate and display average order amount</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average Order Amount: $</span><span class="si">{</span><span class="n">complete_data</span><span class="p">[</span><span class="s1">'Amount'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate and display total number of unique orders</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Orders: </span><span class="si">{</span><span class="n">complete_data</span><span class="p">[</span><span class="s1">'Order_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate and display total number of unique customers</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Customers: </span><span class="si">{</span><span class="n">complete_data</span><span class="p">[</span><span class="s1">'Customer_ID'</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate and display average customer rating</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Average Customer Rating: </span><span class="si">{</span><span class="n">complete_data</span><span class="p">[</span><span class="s1">'Customer_Rating'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Top performers analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Top 5 Customers by Revenue:"</span><span class="p">)</span>
+<span class="c1"># Group by Name, sum Amount, sort in descending order, take top 5</span>
+<span class="n">top_customers</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'Name', 'Amount', False, 5</span>
+<span class="c1"># Loop through and display top customers</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_customers</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">amount</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Top 5 Products by Revenue:"</span><span class="p">)</span>
+<span class="c1"># Group by Product, sum Amount, sort in descending order, take top 5</span>
+<span class="n">top_products</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)[</span><span class="s1">'__________'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'Product', 'Amount', False, 5</span>
+<span class="c1"># Loop through and display top products</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">top_products</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">product</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">amount</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Regional analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Regional Analysis:"</span><span class="p">)</span>
+<span class="c1"># Group by City and aggregate multiple columns</span>
+<span class="n">regional_stats</span> <span class="o">=</span> <span class="n">complete_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span> <span class="c1"># use 'City'</span>
+    <span class="s1">'Amount'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="c1"># use 'sum', 'mean', 'count'</span>
+    <span class="s1">'Customer_Rating'</span><span class="p">:</span> <span class="s1">'__________'</span> <span class="c1"># use 'mean'</span>
+<span class="p">})</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Flatten column names</span>
+<span class="n">regional_stats</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'_'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">regional_stats</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">regional_stats</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">🎉 All visualization exercises completed!"</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_10_Review_and_Final_Project_Work</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,318 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-10:-Review-and-Final-Project-Work">Homework 10: Review and Final Project Work<a class="anchor-link" href="#Homework-10:-Review-and-Final-Project-Work">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment serves as a comprehensive review of all course concepts and provides a framework for the final project.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Review and integrate all course concepts</li>
+<li>Apply data science workflow to real-world problems</li>
+<li>Create a comprehensive data analysis project</li>
+<li>Present findings effectively</li>
+<li>Demonstrate mastery of Python data science tools</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Comprehensive-Data-Analysis-Project-(40-points)">Exercise 1: Comprehensive Data Analysis Project (40 points)<a class="anchor-link" href="#Exercise-1:-Comprehensive-Data-Analysis-Project-(40-points)">¶</a></h2><p><strong>Task:</strong> Create a complete data analysis project using all course concepts.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Choose a dataset and define analysis goals</li>
+<li>Perform exploratory data analysis</li>
+<li>Apply data preprocessing and cleaning</li>
+<li>Build and evaluate machine learning models</li>
+<li>Create visualizations and present findings</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following comprehensive data analysis project</span>
+
+<span class="c1"># Import necessary libraries for data analysis and machine learning</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="c1"># Import machine learning tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_wine</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+
+<span class="c1"># Set plotting style for better visualizations</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'seaborn-v0_8'</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">"__________"</span><span class="p">)</span> <span class="c1"># use "husl"</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== COMPREHENSIVE DATA ANALYSIS PROJECT ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Project: Wine Quality Classification"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Objective: Build a machine learning model to classify wine quality"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># 1. Data Loading and Initial Exploration</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">1. DATA LOADING AND EXPLORATION"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># Load the wine dataset</span>
+<span class="n">wine</span> <span class="o">=</span> <span class="n">load_wine</span><span class="p">()</span>
+<span class="c1"># Create DataFrame from wine dataset</span>
+<span class="n">wine_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'data' and 'feature_names'</span>
+<span class="c1"># Add target variable (wine class labels as numbers)</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'target'</span>
+<span class="c1"># Add target variable (wine class labels as names)</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">[</span><span class="n">wine</span><span class="o">.</span><span class="n">target</span><span class="p">]</span> <span class="c1"># use 'target_names'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset shape: </span><span class="si">{</span><span class="n">wine_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Features: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">wine_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># Exclude target and wine_type</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target classes: </span><span class="si">{</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Display basic information about the dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Dataset Info:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_df</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'info'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First 5 rows:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_df</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'head'</span>
+
+<span class="c1"># TODO: Display statistical summary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Statistical Summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_df</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'describe'</span>
+
+<span class="c1"># 2. Exploratory Data Analysis (EDA)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2. EXPLORATORY DATA ANALYSIS"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># Check for missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing values:</span><span class="se">\n</span><span class="si">{</span><span class="n">wine_df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Check data distribution</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Target distribution:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="c1"># TODO: Create visualizations for EDA</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 15, 10</span>
+
+<span class="c1"># Distribution of target classes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 1</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'bar', 'skyblue'</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Distribution of Wine Types'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Wine Type'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Count'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 45</span>
+
+<span class="c1"># Correlation heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 2</span>
+<span class="c1"># Calculate correlation matrix for numerical columns only</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">wine_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">__________</span><span class="p">])</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span> <span class="c1"># use np.number</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use False, 'coolwarm', 0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Feature Correlation Heatmap'</span><span class="p">)</span>
+
+<span class="c1"># Box plot for a few key features</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 3</span>
+<span class="n">wine_df</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="n">by</span><span class="o">=</span><span class="s1">'wine_type'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span> <span class="c1"># use 'alcohol', 'malic_acid', 'ash'</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Key Features by Wine Type'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>  <span class="c1"># Remove default title</span>
+
+<span class="c1"># Scatter plot of two important features</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 4</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># use 'red', 'green', 'blue'</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">wine_type</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span> <span class="o">==</span> <span class="n">wine_type</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">wine_df</span><span class="p">[</span><span class="n">mask</span><span class="p">][</span><span class="s1">'alcohol'</span><span class="p">],</span> <span class="n">wine_df</span><span class="p">[</span><span class="n">mask</span><span class="p">][</span><span class="s1">'malic_acid'</span><span class="p">],</span> 
+                <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">wine_type</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0.7</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Alcohol'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Malic Acid'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Alcohol vs Malic Acid by Wine Type'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Feature importance (using Random Forest)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 5</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">wine_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'target'</span><span class="p">,</span> <span class="s1">'wine_type'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">wine_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span>
+<span class="n">rf_temp</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 100, 42</span>
+<span class="n">rf_temp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">feature_importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'feature'</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+    <span class="s1">'importance'</span><span class="p">:</span> <span class="n">rf_temp</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'importance'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use True</span>
+<span class="n">feature_importance</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'feature'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'importance'</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">'barh'</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Feature Importance'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Importance'</span><span class="p">)</span>
+
+<span class="c1"># Distribution of alcohol content</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 2, 3, 6</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'alcohol'</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 20, 0.7, 'orange'</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Distribution of Alcohol Content'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Alcohol'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Frequency'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 3. Data Preprocessing</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">3. DATA PREPROCESSING"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># Separate features and target</span>
+<span class="c1"># Drop target and wine_type columns to get feature matrix</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">wine_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'target'</span><span class="p">,</span> <span class="s1">'wine_type'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+<span class="c1"># Extract target variable</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">wine_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span>
+
+<span class="c1"># TODO: Apply feature scaling</span>
+<span class="c1"># Create StandardScaler instance for feature normalization</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="c1"># Fit scaler to training data and transform features</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">__________transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># use 'fit_'</span>
+<span class="c1"># Convert scaled features back to DataFrame with original column names</span>
+<span class="n">X_scaled_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original features shape: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Scaled features shape: </span><span class="si">{</span><span class="n">X_scaled</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Scaled features (first 5 rows):</span><span class="se">\n</span><span class="si">{</span><span class="n">X_scaled_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and testing sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span> <span class="c1"># use 0.2, 42</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Training set shape: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test set shape: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 4. Model Building and Evaluation</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">4. MODEL BUILDING AND EVALUATION"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># TODO: Train multiple models</span>
+<span class="c1"># Create dictionary of different machine learning models</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Logistic Regression'</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 42</span>
+    <span class="s1">'Random Forest'</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 100, 42</span>
+    <span class="s1">'Gradient Boosting'</span><span class="p">:</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 42</span>
+<span class="p">}</span>
+
+<span class="n">model_results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Train the model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+    
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'predict'</span>
+    
+    <span class="c1"># Calculate accuracy</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">model_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Find the best model</span>
+<span class="c1"># Find the model with the highest accuracy</span>
+<span class="n">best_model_name</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">model_results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">model_results</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Best model: </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2"> with accuracy: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Detailed evaluation of best model</span>
+<span class="n">y_pred_best</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'predict'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Detailed Classification Report for </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2">:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_best</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="p">))</span>
+
+<span class="c1"># Confusion Matrix</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 8, 6</span>
+<span class="c1"># Calculate confusion matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_best</span><span class="p">)</span>
+<span class="c1"># Create heatmap of confusion matrix</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use True, 'd', 'Blues'</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Confusion Matrix - </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Predicted'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Actual'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 5. Cross-Validation</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">5. CROSS-VALIDATION"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># TODO: Perform cross-validation</span>
+<span class="c1"># Perform 5-fold cross-validation on the best model</span>
+<span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 5, 'accuracy'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cross-validation scores: </span><span class="si">{</span><span class="n">cv_scores</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean CV accuracy: </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (+/- </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">__________</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span> <span class="c1"># use 2</span>
+
+<span class="c1"># 6. Feature Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">6. FEATURE ANALYSIS"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># TODO: Analyze feature importance</span>
+<span class="c1"># Check if the best model has feature importance attribute</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="s1">'feature_importances_'</span><span class="p">):</span>
+    <span class="n">feature_importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">'feature'</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+        <span class="s1">'importance'</span><span class="p">:</span> <span class="n">best_model</span><span class="o">.</span><span class="n">feature_importances_</span>
+    <span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'importance', False</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Top 5 most important features:"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">feature_importance</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    
+    <span class="c1"># Plot feature importance</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 10, 6</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">feature_importance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 10, 'importance', 'feature'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Top 10 Feature Importance - </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Importance'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 7. Model Interpretation and Insights</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">7. MODEL INTERPRETATION AND INSIGHTS"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Performance Summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Best Model: </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Test Accuracy: </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Cross-validation Accuracy: </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (+/- </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Key Insights:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- The model can classify wine types with </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> accuracy"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Cross-validation shows consistent performance across different data splits"</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="s1">'feature_importances_'</span><span class="p">):</span>
+    <span class="n">top_feature</span> <span class="o">=</span> <span class="n">feature_importance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'feature'</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- The most important feature for classification is: </span><span class="si">{</span><span class="n">top_feature</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 8. Conclusion and Recommendations</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">8. CONCLUSION AND RECOMMENDATIONS"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Project Summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Successfully built a wine classification model"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Achieved </span><span class="si">{</span><span class="n">model_results</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> accuracy on test data"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Model is ready for deployment with proper validation"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Recommendations:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Consider collecting more data to improve model robustness"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Monitor model performance over time"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- Consider ensemble methods for even better performance"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">🎉 Project completed successfully!"</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

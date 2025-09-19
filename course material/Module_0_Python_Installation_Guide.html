@@ -7794,59 +7794,843 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
+<h1 id="Module-0:-Python-Installation-Guide">Module 0: Python Installation Guide<a class="anchor-link" href="#Module-0:-Python-Installation-Guide">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
 <strong>Date:</strong> 2023-01-01<br/>
 <strong>Version:</strong> 1.0.0</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Install Python on Windows, macOS, and Linux</li>
+<li>Set up a development environment</li>
+<li>Install required packages for the course</li>
+<li>Verify your installation</li>
+<li>Troubleshoot common installation issues</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
+<h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">¶</a></h2><ul>
+<li>Basic computer skills</li>
+<li>Internet connection</li>
+<li>Administrator/sudo privileges (for some installations)</li>
+</ul>
+<h2 id="Overview">Overview<a class="anchor-link" href="#Overview">¶</a></h2><p>This module will guide you through installing Python and setting up your development environment for this course. We'll cover multiple installation methods and provide platform-specific instructions.</p>
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li><a href="#system-requirements">System Requirements</a></li>
+<li><a href="#python-installation-methods">Python Installation Methods</a></li>
+<li><a href="#platform-specific-instructions">Platform-Specific Instructions</a></li>
+<li><a href="#package-installation">Package Installation</a></li>
+<li><a href="#verification">Verification</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="1.-System-Requirements">1. System Requirements<a class="anchor-link" href="#1.-System-Requirements">¶</a></h2><h3 id="Minimum-Requirements">Minimum Requirements<a class="anchor-link" href="#Minimum-Requirements">¶</a></h3><ul>
+<li><strong>Operating System</strong>: Windows 10+, macOS 10.14+, or Linux (Ubuntu 18.04+, CentOS 7+, etc.)</li>
+<li><strong>RAM</strong>: 4GB minimum, 8GB recommended</li>
+<li><strong>Storage</strong>: 2GB free space</li>
+<li><strong>Internet Connection</strong>: Required for downloading packages</li>
+</ul>
+<h3 id="Recommended-Requirements">Recommended Requirements<a class="anchor-link" href="#Recommended-Requirements">¶</a></h3><ul>
+<li><strong>RAM</strong>: 8GB or more</li>
+<li><strong>Storage</strong>: 10GB free space</li>
+<li><strong>CPU</strong>: Multi-core processor</li>
+<li><strong>Graphics</strong>: Dedicated graphics card (optional, for visualization)</li>
+</ul>
+<h3 id="Python-Version">Python Version<a class="anchor-link" href="#Python-Version">¶</a></h3><ul>
+<li><strong>Required</strong>: Python 3.8 or higher</li>
+<li><strong>Recommended</strong>: Python 3.9, 3.10, or 3.11</li>
+<li><strong>Not Supported</strong>: Python 2.x (end of life)</li>
+</ul>
+<h3 id="Check-Your-Current-Python-Version">Check Your Current Python Version<a class="anchor-link" href="#Check-Your-Current-Python-Version">¶</a></h3><p>If you already have Python installed, check your version:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Check Python version</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Python version: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Python executable: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Run this in your terminal/command prompt to check Python version</span>
+<span class="c1"># python --version</span>
+<span class="c1"># or</span>
+<span class="c1"># python3 --version</span>
+
+<span class="c1"># If you're running this in Jupyter, you can check with:</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Python version: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Python executable: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="2.-Python-Installation-Methods">2. Python Installation Methods<a class="anchor-link" href="#2.-Python-Installation-Methods">¶</a></h2><h3 id="Method-1:-Official-Python-Installer-(Recommended-for-Beginners)">Method 1: Official Python Installer (Recommended for Beginners)<a class="anchor-link" href="#Method-1:-Official-Python-Installer-(Recommended-for-Beginners)">¶</a></h3><p><strong>Pros</strong>: Simple, official, includes pip
+<strong>Cons</strong>: May not be the latest version immediately</p>
+<h3 id="Method-2:-Package-Managers">Method 2: Package Managers<a class="anchor-link" href="#Method-2:-Package-Managers">¶</a></h3><p><strong>Pros</strong>: Easy updates, dependency management
+<strong>Cons</strong>: Platform-specific</p>
 <ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
+<li><strong>Windows</strong>: Chocolatey, Scoop</li>
+<li><strong>macOS</strong>: Homebrew, MacPorts</li>
+<li><strong>Linux</strong>: apt, yum, pacman</li>
+</ul>
+<h3 id="Method-3:-Anaconda/Miniconda-(Recommended-for-Data-Science)">Method 3: Anaconda/Miniconda (Recommended for Data Science)<a class="anchor-link" href="#Method-3:-Anaconda/Miniconda-(Recommended-for-Data-Science)">¶</a></h3><p><strong>Pros</strong>: Includes data science packages, environment management
+<strong>Cons</strong>: Larger download, may include packages you don't need</p>
+<h3 id="Method-4:-pyenv-(Advanced-Users)">Method 4: pyenv (Advanced Users)<a class="anchor-link" href="#Method-4:-pyenv-(Advanced-Users)">¶</a></h3><p><strong>Pros</strong>: Multiple Python versions, project-specific environments
+<strong>Cons</strong>: More complex setup</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="3.-Platform-Specific-Instructions">3. Platform-Specific Instructions<a class="anchor-link" href="#3.-Platform-Specific-Instructions">¶</a></h2><h3 id="Windows-Installation">Windows Installation<a class="anchor-link" href="#Windows-Installation">¶</a></h3><h4 id="Option-A:-Official-Python-Installer">Option A: Official Python Installer<a class="anchor-link" href="#Option-A:-Official-Python-Installer">¶</a></h4><ol>
+<li><p><strong>Download Python</strong>:</p>
+<ul>
+<li>Go to <a href="https://www.python.org/downloads/">python.org</a></li>
+<li>Click "Download Python 3.x.x"</li>
+<li>Choose the latest stable version</li>
 </ul>
 </li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
+<li><p><strong>Run the Installer</strong>:</p>
 <ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
+<li>Double-click the downloaded <code>.exe</code> file</li>
+<li><strong>IMPORTANT</strong>: Check "Add Python to PATH" at the bottom</li>
+<li>Choose "Install Now" or "Customize installation"</li>
+<li>If customizing, ensure pip is selected</li>
 </ul>
 </li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
+<li><p><strong>Verify Installation</strong>:</p>
 <ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
+<li>Open Command Prompt (cmd) or PowerShell</li>
+<li>Type: <code>python --version</code></li>
+<li>Type: <code>pip --version</code></li>
 </ul>
 </li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<h4 id="Option-B:-Using-Chocolatey">Option B: Using Chocolatey<a class="anchor-link" href="#Option-B:-Using-Chocolatey">¶</a></h4><ol>
+<li><p><strong>Install Chocolatey</strong> (if not already installed):</p>
+<div class="highlight"><pre><span></span><span class="c"># Run as Administrator</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">Bypass</span> <span class="n">-Scope</span> <span class="k">Process</span> <span class="n">-Force</span>
+<span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="o">-bor</span> <span class="n">3072</span>
+<span class="nb">iex </span><span class="p">((</span><span class="nb">New-Object</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">'https://community.chocolatey.org/install.ps1'</span><span class="p">))</span>
+</pre></div>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">choco</span> <span class="n">install</span> <span class="n">python</span>
+</pre></div>
+</li>
+</ol>
+<h4 id="Option-C:-Using-Scoop">Option C: Using Scoop<a class="anchor-link" href="#Option-C:-Using-Scoop">¶</a></h4><ol>
+<li><p><strong>Install Scoop</strong> (if not already installed):</p>
+<div class="highlight"><pre><span></span><span class="nb">Set-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+<span class="nb">irm </span><span class="n">get</span><span class="p">.</span><span class="n">scoop</span><span class="p">.</span><span class="n">sh</span> <span class="p">|</span> <span class="nb">iex</span>
+</pre></div>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<div class="highlight"><pre><span></span><span class="n">scoop</span> <span class="n">install</span> <span class="n">python</span>
+</pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="macOS-Installation">macOS Installation<a class="anchor-link" href="#macOS-Installation">¶</a></h3><h4 id="Option-A:-Official-Python-Installer">Option A: Official Python Installer<a class="anchor-link" href="#Option-A:-Official-Python-Installer">¶</a></h4><ol>
+<li><p><strong>Download Python</strong>:</p>
+<ul>
+<li>Go to <a href="https://www.python.org/downloads/">python.org</a></li>
+<li>Click "Download Python 3.x.x"</li>
+<li>Download the macOS installer (.pkg file)</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<ul>
+<li>Double-click the downloaded <code>.pkg</code> file</li>
+<li>Follow the installation wizard</li>
+<li>Python will be installed in <code>/Applications/Python 3.x/</code></li>
 </ul>
+</li>
+<li><p><strong>Verify Installation</strong>:</p>
+<ul>
+<li>Open Terminal</li>
+<li>Type: <code>python3 --version</code></li>
+<li>Type: <code>pip3 --version</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="Option-B:-Using-Homebrew-(Recommended)">Option B: Using Homebrew (Recommended)<a class="anchor-link" href="#Option-B:-Using-Homebrew-(Recommended)">¶</a></h4><ol>
+<li><p><strong>Install Homebrew</strong> (if not already installed):</p>
+<div class="highlight"><pre><span></span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">"</span>
+</pre></div>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>python
+</pre></div>
+</li>
+<li><p><strong>Verify Installation</strong>:</p>
+<div class="highlight"><pre><span></span>python3<span class="w"> </span>--version
+pip3<span class="w"> </span>--version
+</pre></div>
+</li>
+</ol>
+<h4 id="Option-C:-Using-MacPorts">Option C: Using MacPorts<a class="anchor-link" href="#Option-C:-Using-MacPorts">¶</a></h4><ol>
+<li><p><strong>Install MacPorts</strong>:</p>
+<ul>
+<li>Download from <a href="https://www.macports.org/install.php">macports.org</a></li>
+<li>Install the package</li>
+</ul>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>port<span class="w"> </span>install<span class="w"> </span>python311
+</pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Linux-Installation">Linux Installation<a class="anchor-link" href="#Linux-Installation">¶</a></h3><h4 id="Ubuntu/Debian">Ubuntu/Debian<a class="anchor-link" href="#Ubuntu/Debian">¶</a></h4><ol>
+<li><p><strong>Update package list</strong>:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</pre></div>
+</li>
+<li><p><strong>Install Python</strong>:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv
+</pre></div>
+</li>
+<li><p><strong>Install development tools</strong> (optional but recommended):</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-dev<span class="w"> </span>build-essential
+</pre></div>
+</li>
+</ol>
+<h4 id="CentOS/RHEL/Fedora">CentOS/RHEL/Fedora<a class="anchor-link" href="#CentOS/RHEL/Fedora">¶</a></h4><p><strong>For CentOS/RHEL</strong>:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+<span class="c1"># or for newer versions</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+</pre></div>
+<p><strong>For Fedora</strong>:</p>
+<div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+</pre></div>
+<h4 id="Arch-Linux">Arch Linux<a class="anchor-link" href="#Arch-Linux">¶</a></h4><div class="highlight"><pre><span></span>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python<span class="w"> </span>python-pip
+</pre></div>
+<h4 id="OpenSUSE">OpenSUSE<a class="anchor-link" href="#OpenSUSE">¶</a></h4><div class="highlight"><pre><span></span>sudo<span class="w"> </span>zypper<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Anaconda/Miniconda-Installation-(Cross-Platform)">Anaconda/Miniconda Installation (Cross-Platform)<a class="anchor-link" href="#Anaconda/Miniconda-Installation-(Cross-Platform)">¶</a></h3><h4 id="Anaconda-(Full-Distribution)">Anaconda (Full Distribution)<a class="anchor-link" href="#Anaconda-(Full-Distribution)">¶</a></h4><ol>
+<li><p><strong>Download Anaconda</strong>:</p>
+<ul>
+<li>Go to <a href="https://www.anaconda.com/products/distribution">anaconda.com</a></li>
+<li>Download the installer for your platform</li>
+</ul>
+</li>
+<li><p><strong>Install Anaconda</strong>:</p>
+<ul>
+<li><strong>Windows</strong>: Run the <code>.exe</code> installer</li>
+<li><strong>macOS</strong>: Run the <code>.pkg</code> installer</li>
+<li><strong>Linux</strong>: Run the <code>.sh</code> installer</li>
+<li>Follow the installation wizard</li>
+</ul>
+</li>
+<li><p><strong>Verify Installation</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>--version
+python<span class="w"> </span>--version
+</pre></div>
+</li>
+</ol>
+<h4 id="Miniconda-(Minimal-Distribution)">Miniconda (Minimal Distribution)<a class="anchor-link" href="#Miniconda-(Minimal-Distribution)">¶</a></h4><ol>
+<li><p><strong>Download Miniconda</strong>:</p>
+<ul>
+<li>Go to <a href="https://docs.conda.io/en/latest/miniconda.html">docs.conda.io</a></li>
+<li>Download the installer for your platform</li>
+</ul>
+</li>
+<li><p><strong>Install Miniconda</strong>:</p>
+<ul>
+<li>Same process as Anaconda</li>
+<li>Choose "Add to PATH" when prompted</li>
+</ul>
+</li>
+<li><p><strong>Create Environment</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>python-course<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+conda<span class="w"> </span>activate<span class="w"> </span>python-course
+</pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="4.-Package-Installation">4. Package Installation<a class="anchor-link" href="#4.-Package-Installation">¶</a></h2><h3 id="Virtual-Environments-(Recommended)">Virtual Environments (Recommended)<a class="anchor-link" href="#Virtual-Environments-(Recommended)">¶</a></h3><p>Virtual environments help isolate your project dependencies and prevent conflicts.</p>
+<h4 id="Using-venv-(Built-in)">Using venv (Built-in)<a class="anchor-link" href="#Using-venv-(Built-in)">¶</a></h4><ol>
+<li><p><strong>Create virtual environment</strong>:</p>
+<div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>python-course-env
+</pre></div>
+</li>
+<li><p><strong>Activate virtual environment</strong>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Windows</span>
+python-course-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+
+<span class="c1"># macOS/Linux</span>
+<span class="nb">source</span><span class="w"> </span>python-course-env/bin/activate
+</pre></div>
+</li>
+<li><p><strong>Deactivate when done</strong>:</p>
+<div class="highlight"><pre><span></span>deactivate
+</pre></div>
+</li>
+</ol>
+<h4 id="Using-conda">Using conda<a class="anchor-link" href="#Using-conda">¶</a></h4><ol>
+<li><p><strong>Create conda environment</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>python-course<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+</pre></div>
+</li>
+<li><p><strong>Activate environment</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>python-course
+</pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Installing-Required-Packages">Installing Required Packages<a class="anchor-link" href="#Installing-Required-Packages">¶</a></h3><h4 id="Method-1:-Using-pip-with-requirements.txt">Method 1: Using pip with requirements.txt<a class="anchor-link" href="#Method-1:-Using-pip-with-requirements.txt">¶</a></h4><ol>
+<li><p><strong>Navigate to course directory</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/path/to/python-course
+</pre></div>
+</li>
+<li><p><strong>Install packages</strong>:</p>
+<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</li>
+</ol>
+<h4 id="Method-2:-Using-conda">Method 2: Using conda<a class="anchor-link" href="#Method-2:-Using-conda">¶</a></h4><ol>
+<li><p><strong>Install from environment.yml</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>python-course
+</pre></div>
+</li>
+<li><p><strong>Or install manually</strong>:</p>
+<div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>scipy<span class="w"> </span>scikit-learn<span class="w"> </span>matplotlib<span class="w"> </span>seaborn<span class="w"> </span>jupyter
+</pre></div>
+</li>
+</ol>
+<h4 id="Method-3:-Install-packages-individually">Method 3: Install packages individually<a class="anchor-link" href="#Method-3:-Install-packages-individually">¶</a></h4><div class="highlight"><pre><span></span><span class="c1"># Core packages</span>
+pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>pandas<span class="w"> </span>scipy
+
+<span class="c1"># Machine learning</span>
+pip<span class="w"> </span>install<span class="w"> </span>scikit-learn
+
+<span class="c1"># Visualization</span>
+pip<span class="w"> </span>install<span class="w"> </span>matplotlib<span class="w"> </span>seaborn
+
+<span class="c1"># Jupyter</span>
+pip<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>jupyterlab
+
+<span class="c1"># Optional packages</span>
+pip<span class="w"> </span>install<span class="w"> </span>plotly<span class="w"> </span>bokeh<span class="w"> </span>xgboost<span class="w"> </span>lightgbm
+</pre></div>
+<h3 id="Package-Versions">Package Versions<a class="anchor-link" href="#Package-Versions">¶</a></h3><p>The course requires the following minimum versions:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Minimum Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>numpy</td>
+<td>1.21.0</td>
+<td>Numerical computing</td>
+</tr>
+<tr>
+<td>pandas</td>
+<td>1.3.0</td>
+<td>Data manipulation</td>
+</tr>
+<tr>
+<td>scipy</td>
+<td>1.7.0</td>
+<td>Scientific computing</td>
+</tr>
+<tr>
+<td>scikit-learn</td>
+<td>1.0.0</td>
+<td>Machine learning</td>
+</tr>
+<tr>
+<td>matplotlib</td>
+<td>3.5.0</td>
+<td>Basic plotting</td>
+</tr>
+<tr>
+<td>seaborn</td>
+<td>0.11.0</td>
+<td>Statistical visualization</td>
+</tr>
+<tr>
+<td>jupyter</td>
+<td>1.0.0</td>
+<td>Interactive computing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="5.-Verification">5. Verification<a class="anchor-link" href="#5.-Verification">¶</a></h2><p>After installation, verify your setup by running the following code:</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Test basic imports</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ NumPy </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ NumPy - FAILED"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Pandas </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Pandas - FAILED"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Matplotlib </span><span class="si">{</span><span class="n">plt</span><span class="o">.</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Matplotlib - FAILED"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Seaborn </span><span class="si">{</span><span class="n">sns</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Seaborn - FAILED"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">sklearn</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ Scikit-learn </span><span class="si">{</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ Scikit-learn - FAILED"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"✅ SciPy </span><span class="si">{</span><span class="n">scipy</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> - OK"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"❌ SciPy - FAILED"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"="</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"INSTALLATION VERIFICATION COMPLETE"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Test basic functionality</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Testing basic functionality..."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">1. NumPy array creation:"</span><span class="p">)</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Array: </span><span class="si">{</span><span class="n">arr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Mean: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2. Pandas DataFrame creation:"</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'A'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">'B'</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   DataFrame:</span><span class="se">\n</span><span class="si">{</span><span class="n">df</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">3. Matplotlib plot (basic):"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Test Plot'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">4. Scikit-learn dataset:"</span><span class="p">)</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Iris dataset shape: </span><span class="si">{</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   Target names: </span><span class="si">{</span><span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">✅ All basic functionality tests passed!"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Your Python environment is ready for the course."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="6.-Troubleshooting">6. Troubleshooting<a class="anchor-link" href="#6.-Troubleshooting">¶</a></h2><h3 id="Common-Issues-and-Solutions">Common Issues and Solutions<a class="anchor-link" href="#Common-Issues-and-Solutions">¶</a></h3><h4 id="Issue-1:-%22python:-command-not-found%22-(Linux/macOS)">Issue 1: "python: command not found" (Linux/macOS)<a class="anchor-link" href="#Issue-1:-%22python:-command-not-found%22-(Linux/macOS)">¶</a></h4><p><strong>Problem</strong>: Python is not in your PATH</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Try <code>python3</code> instead of <code>python</code></li>
+<li>Add Python to your PATH:<div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"/usr/local/bin/python3:</span><span class="nv">$PATH</span><span class="s2">"</span>
+</pre></div>
+</li>
+<li>Create an alias:<div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">python</span><span class="o">=</span>python3
+<span class="nb">alias</span><span class="w"> </span><span class="nv">pip</span><span class="o">=</span>pip3
+</pre></div>
+</li>
+</ol>
+<h4 id="Issue-2:-%22pip:-command-not-found%22">Issue 2: "pip: command not found"<a class="anchor-link" href="#Issue-2:-%22pip:-command-not-found%22">¶</a></h4><p><strong>Problem</strong>: pip is not installed or not in PATH</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Install pip:<div class="highlight"><pre><span></span><span class="c1"># Linux</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+
+<span class="c1"># macOS (with Homebrew)</span>
+brew<span class="w"> </span>install<span class="w"> </span>python
+</pre></div>
+</li>
+<li>Use python -m pip:<div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>package_name
+</pre></div>
+</li>
+</ol>
+<h4 id="Issue-3:-%22Permission-denied%22-errors">Issue 3: "Permission denied" errors<a class="anchor-link" href="#Issue-3:-%22Permission-denied%22-errors">¶</a></h4><p><strong>Problem</strong>: Installing packages system-wide requires admin privileges</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Use a virtual environment (recommended)</li>
+<li>Use <code>--user</code> flag:<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>package_name
+</pre></div>
+</li>
+<li>Use sudo (not recommended):<div class="highlight"><pre><span></span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>package_name
+</pre></div>
+</li>
+</ol>
+<h4 id="Issue-4:-ImportError-when-running-Jupyter">Issue 4: ImportError when running Jupyter<a class="anchor-link" href="#Issue-4:-ImportError-when-running-Jupyter">¶</a></h4><p><strong>Problem</strong>: Jupyter is using a different Python environment</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Install Jupyter in the same environment:<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>jupyter
+</pre></div>
+</li>
+<li>Install ipykernel:<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ipykernel
+python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="o">=</span>python-course
+</pre></div>
+</li>
+<li>Select the correct kernel in Jupyter</li>
+</ol>
+<h4 id="Issue-5:-Matplotlib-backend-issues">Issue 5: Matplotlib backend issues<a class="anchor-link" href="#Issue-5:-Matplotlib-backend-issues">¶</a></h4><p><strong>Problem</strong>: Plots not displaying or GUI issues</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Install GUI backend:<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib<span class="o">[</span>all<span class="o">]</span>
+</pre></div>
+</li>
+<li>Set backend:<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'Agg'</span><span class="p">)</span>  <span class="c1"># For headless servers</span>
+</pre></div>
+</li>
+<li>Install system dependencies:<div class="highlight"><pre><span></span><span class="c1"># Ubuntu/Debian</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-tk
+
+<span class="c1"># macOS (with Homebrew)</span>
+brew<span class="w"> </span>install<span class="w"> </span>python-tk
+</pre></div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h4 id="Issue-6:-Package-version-conflicts">Issue 6: Package version conflicts<a class="anchor-link" href="#Issue-6:-Package-version-conflicts">¶</a></h4><p><strong>Problem</strong>: Different packages require different versions of the same dependency</p>
+<p><strong>Solutions</strong>:</p>
+<ol>
+<li>Use virtual environments</li>
+<li>Use conda for better dependency resolution</li>
+<li>Update all packages:<div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>package_name
+</pre></div>
+</li>
+</ol>
+<h3 id="Platform-Specific-Issues">Platform-Specific Issues<a class="anchor-link" href="#Platform-Specific-Issues">¶</a></h3><h4 id="Windows">Windows<a class="anchor-link" href="#Windows">¶</a></h4><ul>
+<li><strong>Issue</strong>: Long path names<ul>
+<li><strong>Solution</strong>: Enable long paths in Windows 10</li>
+</ul>
+</li>
+<li><strong>Issue</strong>: Antivirus blocking installations<ul>
+<li><strong>Solution</strong>: Add Python directories to antivirus exceptions</li>
+</ul>
+</li>
+</ul>
+<h4 id="macOS">macOS<a class="anchor-link" href="#macOS">¶</a></h4><ul>
+<li><strong>Issue</strong>: Xcode command line tools missing<ul>
+<li><strong>Solution</strong>: <code>xcode-select --install</code></li>
+</ul>
+</li>
+<li><strong>Issue</strong>: Homebrew permission issues<ul>
+<li><strong>Solution</strong>: <code>sudo chown -R $(whoami) /usr/local/bin</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="Linux">Linux<a class="anchor-link" href="#Linux">¶</a></h4><ul>
+<li><strong>Issue</strong>: Missing system dependencies<ul>
+<li><strong>Solution</strong>: Install build essentials<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>python3-dev
+</pre></div>
+</li>
+</ul>
+</li>
+<li><strong>Issue</strong>: SSL certificate errors<ul>
+<li><strong>Solution</strong>: Update certificates<div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ca-certificates
+</pre></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="7.-Next-Steps">7. Next Steps<a class="anchor-link" href="#7.-Next-Steps">¶</a></h2><h3 id="After-Successful-Installation">After Successful Installation<a class="anchor-link" href="#After-Successful-Installation">¶</a></h3><ol>
+<li><p><strong>Explore Jupyter</strong>:</p>
+<ul>
+<li>Start Jupyter: <code>jupyter notebook</code> or <code>jupyter lab</code></li>
+<li>Create a new notebook</li>
+<li>Try running some basic Python code</li>
+</ul>
+</li>
+<li><p><strong>Set up your development environment</strong>:</p>
+<ul>
+<li>Choose a code editor (VS Code, PyCharm, etc.)</li>
+<li>Configure Python interpreter</li>
+<li>Install useful extensions</li>
+</ul>
+</li>
+<li><p><strong>Practice with the basics</strong>:</p>
+<ul>
+<li>Run through Python basics</li>
+<li>Try importing and using the installed packages</li>
+<li>Create simple data analysis scripts</li>
+</ul>
+</li>
+</ol>
+<h3 id="Recommended-Development-Setup">Recommended Development Setup<a class="anchor-link" href="#Recommended-Development-Setup">¶</a></h3><h4 id="Code-Editors">Code Editors<a class="anchor-link" href="#Code-Editors">¶</a></h4><ol>
+<li><p><strong>Visual Studio Code</strong> (Free, recommended)</p>
+<ul>
+<li>Install Python extension</li>
+<li>Install Jupyter extension</li>
+<li>Configure Python interpreter</li>
+</ul>
+</li>
+<li><p><strong>PyCharm</strong> (Professional IDE)</p>
+<ul>
+<li>Community Edition (free)</li>
+<li>Professional Edition (paid)</li>
+<li>Built-in Jupyter support</li>
+</ul>
+</li>
+<li><p><strong>Spyder</strong> (Scientific IDE)</p>
+<ul>
+<li>Comes with Anaconda</li>
+<li>Great for data science</li>
+<li>Built-in variable explorer</li>
+</ul>
+</li>
+</ol>
+<h4 id="Useful-Extensions-and-Tools">Useful Extensions and Tools<a class="anchor-link" href="#Useful-Extensions-and-Tools">¶</a></h4><ol>
+<li><p><strong>Jupyter Extensions</strong>:</p>
+<ul>
+<li>JupyterLab extensions</li>
+<li>Jupyter notebook extensions</li>
+<li>Variable inspector</li>
+<li>Code formatter</li>
+</ul>
+</li>
+<li><p><strong>Python Tools</strong>:</p>
+<ul>
+<li>Black (code formatter)</li>
+<li>Flake8 (linter)</li>
+<li>pytest (testing)</li>
+<li>ipython (enhanced REPL)</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Getting-Help">Getting Help<a class="anchor-link" href="#Getting-Help">¶</a></h3><p>If you encounter issues:</p>
+<ol>
+<li><p><strong>Check documentation</strong>:</p>
+<ul>
+<li><a href="https://docs.python.org/">Python.org</a></li>
+<li><a href="https://numpy.org/doc/">NumPy docs</a></li>
+<li><a href="https://pandas.pydata.org/docs/">Pandas docs</a></li>
+<li><a href="https://scikit-learn.org/stable/">Scikit-learn docs</a></li>
+</ul>
+</li>
+<li><p><strong>Community resources</strong>:</p>
+<ul>
+<li><a href="https://stackoverflow.com/">Stack Overflow</a></li>
+<li><a href="https://www.reddit.com/r/Python/">Python Reddit</a></li>
+<li><a href="https://datascience.stackexchange.com/">Data Science Stack Exchange</a></li>
+</ul>
+</li>
+<li><p><strong>Course-specific help</strong>:</p>
+<ul>
+<li>Check the course discussion forum</li>
+<li>Contact the instructor</li>
+<li>Review the troubleshooting section above</li>
+</ul>
+</li>
+</ol>
+<h3 id="Environment-Management-Best-Practices">Environment Management Best Practices<a class="anchor-link" href="#Environment-Management-Best-Practices">¶</a></h3><ol>
+<li><strong>Always use virtual environments</strong> for projects</li>
+<li><strong>Keep requirements files updated</strong></li>
+<li><strong>Document your environment</strong> setup</li>
+<li><strong>Regularly update packages</strong> (but test first)</li>
+<li><strong>Use version control</strong> (git) for your code</li>
+</ol>
+<h3 id="Final-Checklist">Final Checklist<a class="anchor-link" href="#Final-Checklist">¶</a></h3><p>Before starting Module 1, ensure you have:</p>
+<ul>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Python 3.8+ installed and working</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>pip installed and working</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Virtual environment created and activated</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>All required packages installed</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Jupyter notebook/lab working</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Verification tests passing</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Code editor configured</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Basic understanding of command line</li>
+</ul>
+<h2 id="Congratulations!">Congratulations!<a class="anchor-link" href="#Congratulations!">¶</a></h2><p>You've successfully set up your Python development environment! You're now ready to begin the Python course. Start with Module 1: Introduction and Essentials of Python.</p>
+<h3 id="Quick-Start-Commands">Quick Start Commands<a class="anchor-link" href="#Quick-Start-Commands">¶</a></h3><div class="highlight"><pre><span></span><span class="c1"># Activate your environment</span>
+<span class="nb">source</span><span class="w"> </span>python-course-env/bin/activate<span class="w">  </span><span class="c1"># Linux/macOS</span>
+<span class="c1"># or</span>
+python-course-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># Windows</span>
+
+<span class="c1"># Start Jupyter</span>
+jupyter<span class="w"> </span>notebook
+<span class="c1"># or</span>
+jupyter<span class="w"> </span>lab
+
+<span class="c1"># Deactivate when done</span>
+deactivate
+</pre></div>
+<p>Happy coding!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 </div>
 </div>
 </div>

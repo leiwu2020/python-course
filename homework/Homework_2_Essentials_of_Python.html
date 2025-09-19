@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/> 
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_2_Essentials_of_Python</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,333 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-2:-Essentials-of-Python">Homework 2: Essentials of Python<a class="anchor-link" href="#Homework-2:-Essentials-of-Python">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of advanced Python concepts including data structures, object-oriented programming, file handling, and advanced features.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master Python data structures (lists, tuples, dictionaries, sets)</li>
+<li>Implement object-oriented programming concepts</li>
+<li>Handle file I/O operations</li>
+<li>Use advanced Python features (list comprehensions, generators)</li>
+<li>Apply regular expressions and date/time operations</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Data-Structures-(20-points)">Exercise 1: Data Structures (20 points)<a class="anchor-link" href="#Exercise-1:-Data-Structures-(20-points)">¶</a></h2><p><strong>Task:</strong> Work with Python's built-in data structures and demonstrate their operations.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create and manipulate lists, tuples, dictionaries, and sets</li>
+<li>Demonstrate common operations for each data structure</li>
+<li>Use list comprehensions and generator expressions</li>
+<li>Implement data structure transformations</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="c1"># 1. Lists - Dynamic arrays</span>
+<span class="c1"># Print a header to indicate the start of the lists section</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== LISTS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create lists</span>
+<span class="c1"># Create a list of integers from 1 to 5</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="c1"># Create a list of string fruit names</span>
+<span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'apple'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'cherry'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">]</span>
+<span class="c1"># Create a mixed list containing different data types including a nested list</span>
+<span class="n">mixed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+
+<span class="c1"># Print the numbers list using f-string formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Numbers list: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the fruits list using f-string formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fruits list: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the mixed list using f-string formatting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mixed list: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: List operations</span>
+<span class="c1"># Print a header for list operations section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">List Operations:"</span><span class="p">)</span>
+<span class="c1"># Get the length of the numbers list using len() function</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_______</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># get length of the number list</span>
+<span class="c1"># Access the first element of the numbers list using index 0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First element: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># get the first number</span>
+<span class="c1"># Access the last element of the numbers list using negative index -1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Last element: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Get a slice of the numbers list from index 1 to 3 (exclusive)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Slice [1:3]: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List methods</span>
+<span class="c1"># Add the number 6 to the end of the numbers list using append()</span>
+<span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="c1"># Print the numbers list after appending 6</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After append(6): </span><span class="si">{</span><span class="n">numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Insert the value 2.5 at index 2 in the numbers list </span>
+<span class="n">numbers</span><span class="o">.</span><span class="n">_______</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="c1"># Print the numbers list after inserting 2.5 at index 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After insert(2, 2.5): </span><span class="si">{</span><span class="n">numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Remove the first occurrence of 2.5 from the numbers list</span>
+<span class="n">numbers</span><span class="o">.</span><span class="n">_______</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="c1"># Print the numbers list after removing 2.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After remove(2.5): </span><span class="si">{</span><span class="n">numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Remove and return the last element from the numbers list</span>
+<span class="n">popped</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="n">_______</span><span class="p">()</span>
+<span class="c1"># Print the popped element and the updated numbers list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Popped element: </span><span class="si">{</span><span class="n">popped</span><span class="si">}</span><span class="s2">, List: </span><span class="si">{</span><span class="n">numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List comprehensions</span>
+<span class="c1"># Create a list of squares using list comprehension for numbers 1 to 5</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">_______</span><span class="p">]</span>
+<span class="c1"># Print the squares list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Squares: </span><span class="si">{</span><span class="n">squares</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Create a list of squares for even numbers only using list comprehension with condition</span>
+<span class="n">even_squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">_______</span><span class="p">]</span>
+<span class="c1"># Print the even squares list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Even squares: </span><span class="si">{</span><span class="n">even_squares</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 2. Tuples - Immutable sequences</span>
+<span class="c1"># Print a header to indicate the start of the tuples section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== TUPLES ==="</span><span class="p">)</span>
+
+<span class="c1"># Create tuples</span>
+<span class="c1"># Create a tuple representing x,y coordinates</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Create a tuple representing person information (name, age, job)</span>
+<span class="n">person</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">'Engineer'</span><span class="p">)</span>
+<span class="c1"># Create a tuple of color names</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'blue'</span><span class="p">)</span>
+
+<span class="c1"># Print the coordinates tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coordinates: </span><span class="si">{</span><span class="n">coordinates</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the person tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Person: </span><span class="si">{</span><span class="n">person</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the colors tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Colors: </span><span class="si">{</span><span class="n">colors</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Tuple operations</span>
+<span class="c1"># Print a header for tuple operations section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Tuple Operations:"</span><span class="p">)</span>
+<span class="c1"># Get the length of the coordinates tuple using len() function</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Length: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access the first element of the coordinates tuple using index 0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First element: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access the last element of the coordinates tuple using negative index -1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Last element: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Tuple unpacking</span>
+<span class="c1"># Unpack the person tuple into three separate variables</span>
+<span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">job</span> <span class="o">=</span> <span class="n">person</span>
+<span class="c1"># Print the unpacked values with descriptive labels</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unpacked - Name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, Age: </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">, Job: </span><span class="si">{</span><span class="n">job</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Tuple methods</span>
+<span class="c1"># Count how many times 'red' appears in the colors tuple using count()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Count of 'red' in colors: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Find the index of 'green' in the colors tuple using index()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Index of 'green' in colors: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 3. Dictionaries - Key-value pairs</span>
+<span class="c1"># Print a header to indicate the start of the dictionaries section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DICTIONARIES ==="</span><span class="p">)</span>
+
+<span class="c1"># Create dictionaries</span>
+<span class="c1"># Create a dictionary representing student information with nested list for grades</span>
+<span class="n">student</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Bob'</span><span class="p">,</span>
+    <span class="s1">'age'</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="s1">'major'</span><span class="p">:</span> <span class="s1">'Computer Science'</span><span class="p">,</span>
+    <span class="s1">'grades'</span><span class="p">:</span> <span class="p">[</span><span class="mi">85</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">96</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Create a dictionary using dict() constructor with keyword arguments</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">math</span><span class="o">=</span><span class="mi">95</span><span class="p">,</span> <span class="n">science</span><span class="o">=</span><span class="mi">87</span><span class="p">,</span> <span class="n">english</span><span class="o">=</span><span class="mi">92</span><span class="p">)</span>
+
+<span class="c1"># Print the student dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Student: </span><span class="si">{</span><span class="n">student</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the scores dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Scores: </span><span class="si">{</span><span class="n">scores</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Dictionary operations</span>
+<span class="c1"># Print a header for dictionary operations section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Dictionary Operations:"</span><span class="p">)</span>
+<span class="c1"># Access the 'name' key from the student dictionary using square bracket notation</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Student name: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access the 'age' key from the student dictionary using get() method with default value</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Student age: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Add new key-value pair</span>
+<span class="c1"># Add a new key 'year' with value 'Senior' to the student dictionary</span>
+<span class="n">student</span><span class="p">[</span><span class="s1">'year'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Senior'</span>
+<span class="c1"># Print the student dictionary after adding the year</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After adding year: </span><span class="si">{</span><span class="n">student</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Update existing value</span>
+<span class="c1"># Update the 'age' key in the student dictionary to 23</span>
+<span class="n">student</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="c1"># Print the student dictionary after updating the age</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After updating age: </span><span class="si">{</span><span class="n">student</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionary methods</span>
+<span class="c1"># Get all keys from the student dictionary and convert to list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Keys: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Get all values from the student dictionary and convert to list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Values: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Get all key-value pairs from the student dictionary and convert to list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Items: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionary comprehension</span>
+<span class="c1"># Create a new dictionary with squared scores using dictionary comprehension</span>
+<span class="n">squared_scores</span> <span class="o">=</span> <span class="p">{</span><span class="n">subject</span><span class="p">:</span> <span class="n">score</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">scores</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="c1"># Print the squared scores dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Squared scores: </span><span class="si">{</span><span class="n">squared_scores</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 4. Sets - Unique elements</span>
+<span class="c1"># Print a header to indicate the start of the sets section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== SETS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create sets</span>
+<span class="c1"># Create a set of integers from 1 to 5</span>
+<span class="n">numbers_set</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="c1"># Create a set of fruit names</span>
+<span class="n">fruits_set</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'apple'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'cherry'</span><span class="p">,</span> <span class="s1">'date'</span><span class="p">}</span>
+<span class="c1"># Create a mixed set containing different data types</span>
+<span class="n">mixed_set</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'hello'</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="kc">True</span><span class="p">}</span>
+
+<span class="c1"># Print the numbers set</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Numbers set: </span><span class="si">{</span><span class="n">numbers_set</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the fruits set</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fruits set: </span><span class="si">{</span><span class="n">fruits_set</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the mixed set</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mixed set: </span><span class="si">{</span><span class="n">mixed_set</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Set operations</span>
+<span class="c1"># Print a header for set operations section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Set Operations:"</span><span class="p">)</span>
+<span class="c1"># Get the length of the numbers_set using len() function</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Length: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Check if the value 3 is in the numbers_set using 'in' operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is 3 in set: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Set methods</span>
+<span class="c1"># Add the number 6 to the numbers_set </span>
+<span class="n">numbers_set</span><span class="o">.</span><span class="n">_______</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="c1"># Print the numbers_set after adding 6</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After add(6): </span><span class="si">{</span><span class="n">numbers_set</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Remove the number 6 from the numbers_set </span>
+<span class="n">numbers_set</span><span class="o">.</span><span class="n">_______</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="c1"># Print the numbers_set after removing</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After remove(6): </span><span class="si">{</span><span class="n">numbers_set</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Set operations</span>
+<span class="c1"># Create two sets for demonstrating set operations</span>
+<span class="n">set1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="n">set2</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">}</span>
+
+<span class="c1"># Print both sets</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Set1: </span><span class="si">{</span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Set2: </span><span class="si">{</span><span class="n">set2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate the union of set1 and set2 using | operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Union: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate the intersection of set1 and set2 using &amp; operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intersection: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate the difference of set1 and set2 (elements in set1 but not in set2) using - operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Difference: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Calculate the symmetric difference of set1 and set2 using ^ operator</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Symmetric difference: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 5. Data structure transformations</span>
+<span class="c1"># Print a header to indicate the start of data structure transformations section</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATA STRUCTURE TRANSFORMATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># List to set (removes duplicates)</span>
+<span class="c1"># Create a list with duplicate numbers</span>
+<span class="n">numbers_with_duplicates</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="c1"># Convert the list to a set to remove duplicates, then back to a list</span>
+<span class="n">unique_numbers</span> <span class="o">=</span> <span class="n">_______</span>
+<span class="c1"># Print the original list with duplicates</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: </span><span class="si">{</span><span class="n">numbers_with_duplicates</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Print the list with duplicates removed</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unique: </span><span class="si">{</span><span class="n">unique_numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionary to list of tuples</span>
+<span class="c1"># Convert the student dictionary to a list of key-value tuples using items()</span>
+<span class="n">student_items</span> <span class="o">=</span> <span class="n">_______</span>
+<span class="c1"># Print the student dictionary as a list of tuples</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Student as list of tuples: </span><span class="si">{</span><span class="n">student_items</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List of tuples to dictionary</span>
+<span class="c1"># Create a list of tuples representing key-value pairs</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="c1"># Convert the list of tuples to a dictionary using dict() constructor</span>
+<span class="n">pairs_dict</span> <span class="o">=</span> <span class="n">_______</span>
+<span class="c1"># Print the list of tuples as a dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Pairs as dictionary: </span><span class="si">{</span><span class="n">pairs_dict</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create a nested data structure</span>
+<span class="c1"># Create a nested dictionary containing students list, course info, and instructor</span>
+<span class="n">nested_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'students'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Alice'</span><span class="p">,</span> <span class="s1">'grades'</span><span class="p">:</span> <span class="p">[</span><span class="mi">85</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">78</span><span class="p">]},</span>
+        <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Bob'</span><span class="p">,</span> <span class="s1">'grades'</span><span class="p">:</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">95</span><span class="p">]},</span>
+        <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Charlie'</span><span class="p">,</span> <span class="s1">'grades'</span><span class="p">:</span> <span class="p">[</span><span class="mi">75</span><span class="p">,</span> <span class="mi">82</span><span class="p">,</span> <span class="mi">88</span><span class="p">]}</span>
+    <span class="p">],</span>
+    <span class="s1">'course'</span><span class="p">:</span> <span class="s1">'Python Programming'</span><span class="p">,</span>
+    <span class="s1">'instructor'</span><span class="p">:</span> <span class="s1">'Dr. Smith'</span>
+<span class="p">}</span>
+
+<span class="c1"># Print a header for the nested data structure</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Nested data structure:"</span><span class="p">)</span>
+<span class="c1"># Access and print the 'course' key from the nested_data dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Course: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access and print the 'instructor' key from the nested_data dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Instructor: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access and print the 'students' key from the nested_data dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Students: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Access nested data</span>
+<span class="c1"># Get the first student from the students list (index 0)</span>
+<span class="n">first_student</span> <span class="o">=</span> <span class="n">_______</span>
+<span class="c1"># Print the first student dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First student: </span><span class="si">{</span><span class="n">first_student</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access the 'name' key from the first student dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First student's name: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Access the 'grades' key from the first student dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First student's grades: </span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_5_Pandas_DataFrame</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,134 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-5:-Pandas-DataFrame">Homework 5: Pandas DataFrame<a class="anchor-link" href="#Homework-5:-Pandas-DataFrame">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of Pandas DataFrame data structure and its operations.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master DataFrame creation and manipulation</li>
+<li>Perform indexing, selection, and filtering</li>
+<li>Handle missing values and data cleaning</li>
+<li>Use DataFrame methods for data analysis</li>
+<li>Apply data type conversions and sorting</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-DataFrame-Creation-and-Basic-Operations-(20-points)">Exercise 1: DataFrame Creation and Basic Operations (20 points)<a class="anchor-link" href="#Exercise-1:-DataFrame-Creation-and-Basic-Operations-(20-points)">¶</a></h2><p><strong>Task:</strong> Create Pandas DataFrames and perform basic operations.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Create DataFrames from different data sources</li>
+<li>Perform basic operations on DataFrames</li>
+<li>Use DataFrame indexing and selection</li>
+<li>Demonstrate DataFrame methods</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Create DataFrames from different data sources</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== DATAFRAME CREATION ==="</span><span class="p">)</span>
+
+<span class="c1"># Create DataFrame from dictionary</span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Name'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="s1">'Bob'</span><span class="p">,</span> <span class="s1">'Charlie'</span><span class="p">,</span> <span class="s1">'Diana'</span><span class="p">,</span> <span class="s1">'Eve'</span><span class="p">],</span>
+    <span class="s1">'Age'</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">],</span>
+    <span class="s1">'City'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'New York'</span><span class="p">,</span> <span class="s1">'London'</span><span class="p">,</span> <span class="s1">'Tokyo'</span><span class="p">,</span> <span class="s1">'Paris'</span><span class="p">,</span> <span class="s1">'Sydney'</span><span class="p">],</span>
+    <span class="s1">'Salary'</span><span class="p">:</span> <span class="p">[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">,</span> <span class="mi">70000</span><span class="p">,</span> <span class="mi">55000</span><span class="p">,</span> <span class="mi">65000</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">___________</span> <span class="c1"># convert dictionary data_dict to pandas dataframe</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame from dictionary:</span><span class="se">\n</span><span class="si">{</span><span class="n">df1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># TODO: Create DataFrame from list of lists</span>
+<span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">'New York'</span><span class="p">,</span> <span class="mi">50000</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Bob'</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">'London'</span><span class="p">,</span> <span class="mi">60000</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Charlie'</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">'Tokyo'</span><span class="p">,</span> <span class="mi">70000</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Diana'</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="s1">'Paris'</span><span class="p">,</span> <span class="mi">55000</span><span class="p">],</span>
+    <span class="p">[</span><span class="s1">'Eve'</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">'Sydney'</span><span class="p">,</span> <span class="mi">65000</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Name'</span><span class="p">,</span> <span class="s1">'Age'</span><span class="p">,</span> <span class="s1">'City'</span><span class="p">,</span> <span class="s1">'Salary'</span><span class="p">]</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">__________</span> <span class="c1"># creates a Pandas DataFrame from a list of data (data_list) and explicitly sets the column names using the columns parameter</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">DataFrame from list of lists:</span><span class="se">\n</span><span class="si">{</span><span class="n">df2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Create DataFrame from NumPy array</span>
+<span class="n">np_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">___________</span> <span class="c1"># creates a Pandas DataFrame from a NumPy array (np_data) and assigns the column names 'A', 'B', 'C', and 'D'</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">DataFrame from NumPy array:</span><span class="se">\n</span><span class="si">{</span><span class="n">df3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 2. Perform basic operations on DataFrames</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== BASIC OPERATIONS ==="</span><span class="p">)</span>
+
+<span class="c1"># DataFrame info</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame shape: </span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># returns a tuple representing the dimensions of the Pandas DataFrame df1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame columns: </span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># converts the column labels of the DataFrame df1 into a Python list.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame index: </span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1">#  converts the index labels of the DataFrame df1 into a Python list.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DataFrame dtypes:</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># returns the data types of each column in the Pandas DataFrame df1.</span>
+
+<span class="c1"># Statistical summary</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Statistical summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">___________</span><span class="p">)</span> <span class="c1"># generates summary statistics of the numeric columns in the DataFrame df1 by default.</span>
+
+<span class="c1"># 3. Use DataFrame indexing and selection</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== INDEXING AND SELECTION ==="</span><span class="p">)</span>
+
+<span class="c1"># Column selection</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Name column: </span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># selects the column named 'Name' from the DataFrame df1 and returns it as a Pandas Series.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Age and Salary columns:</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># selects multiple columns, specifically 'Age' and 'Salary', from the DataFrame df1 and returns them as a new DataFrame</span>
+
+<span class="c1"># Row selection</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First row:</span><span class="se">\n</span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># selects the first row of the DataFrame df1 based on its integer position (index 0) and returns it as a Pandas Series</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First 3 rows:</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># selects the first three rows of the DataFrame df1 based on their integer positions (rows at positions 0, 1, and 2) and returns them as a new DataFrame.</span>
+
+<span class="c1"># Label-based selection</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Label-based selection:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Row 0:</span><span class="se">\n</span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># selects the row in the DataFrame df1 with the index label 0 and returns it as a Pandas Series.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Rows 0-2, columns 'Name' and 'Age':</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1">#  elects rows with index labels from 0 to 2 (inclusive) and only the columns 'Name' and 'Age' from the DataFrame df1</span>
+
+<span class="c1"># Boolean indexing</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Boolean indexing:"</span><span class="p">)</span>
+<span class="n">high_salary</span> <span class="o">=</span> <span class="n">__________</span>  <span class="c1"># creates a mask named high_salary by checking which rows in the 'Salary' column of DataFrame df1 have values greater than 60,000</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"High salary employees:</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># filters the DataFrame df1 using the mask high_salary</span>
+
+<span class="c1"># 4. Demonstrate DataFrame methods</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATAFRAME METHODS ==="</span><span class="p">)</span>
+
+<span class="c1"># Data cleaning</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing values:</span><span class="se">\n</span><span class="si">{</span><span class="n">_______</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># identify missing (null/NaN) values in your DataFrame df1 and counts how many are in each column.</span>
+
+<span class="c1"># Sorting</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Sorted by Age:</span><span class="se">\n</span><span class="si">{</span><span class="n">_________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># sorts the DataFrame df1 by the values in the 'Age' column in ascending order</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sorted by Salary (descending):</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1"># sorts the DataFrame df1 by the values in the 'Salary' column in descending order</span>
+
+<span class="c1"># Grouping</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Group by City:</span><span class="se">\n</span><span class="si">{</span><span class="n">__________</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="c1">#  Groups the DataFrame df1 by the values in the 'City' column.  For each group (each unique city), it selects the 'Salary' column.  Calculates the mean (average) salary for each city group.</span>
+
+<span class="c1"># Adding new columns</span>
+<span class="n">df1</span><span class="p">[</span><span class="s1">'Age_Group'</span><span class="p">]</span> <span class="o">=</span> <span class="n">__________</span>  <span class="c1"># applies a function to each value in the 'Age' column of the DataFrame df1, and returns a new Series where: For each age x, if x is less than 30, it returns 'Young'. Otherwise, it returns 'Old'.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">DataFrame with Age_Group:</span><span class="se">\n</span><span class="si">{</span><span class="n">df1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

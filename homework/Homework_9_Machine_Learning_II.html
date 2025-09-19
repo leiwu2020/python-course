@@ -1,286 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <style>
-        /* Reset and base styles */
-        * {
-            box-sizing: border-box;
-        }
-        
-        /* Hide original Jupyter execution numbers */
-        .prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .prompt_container {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .input_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        .output_prompt {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        /* Hide any remaining execution indicators */
-        .prompt::before,
-        .prompt_container::before,
-        .input_prompt::before,
-        .output_prompt::before {
-            display: none !important;
-        }
-        
-        /* Clean cell numbering */
-        .cell {
-            position: relative;
-            margin-bottom: 2em;
-            border-left: 6px solid #007acc;
-            padding-left: 2em;
-            background: #fafafa;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .cell::before {
-            content: attr(data-cell-number);
-            position: absolute;
-            left: -3em;
-            top: 1em;
-            width: 2em;
-            height: 2em;
-            background: #007acc;
-            color: white;
-            border-radius: 50%;
-            display: flex !important;
-            align-items: center;
-            justify-content: center;
-            font-size: 1em;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,122,204,0.3);
-            border: 3px solid white;
-        }
-        
-        /* Code cell specific styling */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Line numbers for code cells */
-        .input_area {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .input_area pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            overflow-x: auto;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .input_area pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Alternative approach for highlight blocks */
-        .highlight {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            background: #ffffff;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            margin-top: 1em;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .highlight pre {
-            position: relative;
-            padding: 1.5em 1.5em 1.5em 6em !important;
-            margin: 0;
-            background: transparent !important;
-            border: none;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
-        .highlight pre::before {
-            content: attr(data-line-numbers);
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5.5em;
-            background: #f8f9fa;
-            border-right: 3px solid #007acc;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            color: #495057;
-            padding: 1.5em 0.5em;
-            white-space: pre;
-            user-select: none;
-            overflow: hidden;
-            z-index: 10;
-            text-align: right;
-            box-sizing: border-box;
-            line-height: 1.6;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            font-weight: 500;
-        }
-        
-        /* Markdown cells */
-        .text_cell {
-            margin-bottom: 1em;
-            padding: 1.5em;
-            background: #f8f9fa;
-            border-left: 6px solid #28a745;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* Output cells */
-        .output_area {
-            margin-top: 1em;
-            padding: 1.5em;
-            background: #ffffff;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        /* Ensure line numbers are visible */
-        .input_area pre::before,
-        .highlight pre::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Print styles */
-        @media print {
-            .cell::before {
-                display: block !important;
-                background: #000 !important;
-                color: #fff !important;
-                border: 2px solid #000 !important;
-            }
-            
-            .input_area pre {
-                font-size: 11px;
-                line-height: 1.4;
-                padding: 1em 1em 1em 5em !important;
-            }
-            
-            .input_area pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .highlight pre::before {
-                font-size: 10px;
-                left: 0;
-                width: 4.5em;
-                background: #f8f9fa !important;
-                border-right: 2px solid #000 !important;
-                display: block !important;
-                padding: 1em 0.3em;
-            }
-            
-            .output_area {
-                font-size: 10px;
-            }
-            
-            .text_cell {
-                font-size: 12px;
-            }
-            
-            .prompt,
-            .prompt_container,
-            .input_prompt,
-            .output_prompt {
-                display: none !important;
-            }
-        }
-        
-        /* Force visibility for all code blocks */
-        pre[data-line-numbers]::before {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        
-        /* Ensure proper spacing */
-        .cell {
-            margin-bottom: 3em;
-        }
-        
-        /* Code cell wrapper */
-        .code_cell {
-            position: relative;
-            overflow: visible;
-        }
-        
-        /* Additional cleanup for execution numbers */
-        .prompt_container,
-        .prompt {
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
-        }
-    </style>
-    <meta charset="utf-8"/>
+<head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Homework_9_Machine_Learning_II</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7794,181 +7517,613 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
-<strong>Date:</strong> 2023-01-01<br/>
-<strong>Version:</strong> 1.0.0</p>
+<h1 id="Homework-9:-Machine-Learning-II-(Optional)">Homework 9: Machine Learning II (Optional)<a class="anchor-link" href="#Homework-9:-Machine-Learning-II-(Optional)">¶</a></h1><p><strong>Student Name:</strong></p>
+<p><strong>Student ID:</strong></p>
+<p><strong>Date:</strong></p>
+<h2 id="Assignment-Overview">Assignment Overview<a class="anchor-link" href="#Assignment-Overview">¶</a></h2><p>This homework assignment tests your understanding of advanced machine learning concepts including ensemble methods, model selection, and hyperparameter tuning.</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Master ensemble learning methods</li>
+<li>Implement model selection and hyperparameter tuning</li>
+<li>Use advanced evaluation metrics</li>
+<li>Apply dimensionality reduction techniques</li>
+<li>Handle imbalanced datasets</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Instructions">Instructions<a class="anchor-link" href="#Instructions">¶</a></h2><ol>
+<li>Complete all exercises in order</li>
+<li>Run all code cells and ensure they execute without errors</li>
+<li>Answer all written questions thoroughly</li>
+<li>Submit your completed notebook</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<hr/>
+<h2 id="Exercise-1:-Ensemble-Methods-(20-points)">Exercise 1: Ensemble Methods (20 points)<a class="anchor-link" href="#Exercise-1:-Ensemble-Methods-(20-points)">¶</a></h2><p><strong>Task:</strong> Implement and compare different ensemble learning methods.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use Random Forest, Gradient Boosting, and Voting Classifiers</li>
+<li>Compare ensemble methods with individual models</li>
+<li>Tune hyperparameters for ensemble methods</li>
+<li>Analyze feature importance</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks</span>
+
+<span class="c1"># Import necessary libraries for advanced machine learning</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="c1"># Import machine learning datasets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_breast_cancer</span><span class="p">,</span> <span class="n">load_wine</span>
+<span class="c1"># Import model selection and evaluation tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="c1"># Import preprocessing tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="c1"># Import ensemble learning algorithms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">,</span> <span class="n">VotingClassifier</span>
+<span class="c1"># Import individual machine learning algorithms</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+<span class="c1"># Import evaluation metrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="c1"># Import dimensionality reduction and pipeline tools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 42</span>
+
+<span class="c1"># 1. Load and prepare datasets</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== DATASET LOADING AND PREPARATION ==="</span><span class="p">)</span>
+
+<span class="c1"># Load Breast Cancer dataset</span>
+<span class="n">cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span>
+<span class="c1"># Create DataFrame from cancer dataset</span>
+<span class="n">cancer_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cancer</span><span class="o">.</span><span class="n">__________</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cancer</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'data' and 'feature_names'</span>
+<span class="c1"># Add target variable (binary classification: malignant/benign)</span>
+<span class="n">cancer_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'target'</span>
+<span class="c1"># Add target names for easier interpretation</span>
+<span class="n">cancer_df</span><span class="p">[</span><span class="s1">'diagnosis'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cancer</span><span class="o">.</span><span class="n">__________</span><span class="p">[</span><span class="n">cancer</span><span class="o">.</span><span class="n">target</span><span class="p">]</span> <span class="c1"># use 'target_names'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Breast Cancer dataset shape: </span><span class="si">{</span><span class="n">cancer_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target distribution:</span><span class="se">\n</span><span class="si">{</span><span class="n">cancer_df</span><span class="p">[</span><span class="s1">'diagnosis'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First 5 rows:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cancer_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Load Wine dataset for comparison</span>
+<span class="n">wine</span> <span class="o">=</span> <span class="n">load_wine</span><span class="p">()</span>
+<span class="c1"># Create DataFrame from wine dataset</span>
+<span class="n">wine_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'data' and 'feature_names'</span>
+<span class="c1"># Add target variable (multi-class classification: wine types)</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'target'</span>
+<span class="c1"># Add target names for easier interpretation</span>
+<span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">__________</span><span class="p">[</span><span class="n">wine</span><span class="o">.</span><span class="n">target</span><span class="p">]</span> <span class="c1"># use 'target_names'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Wine dataset shape: </span><span class="si">{</span><span class="n">wine_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target distribution:</span><span class="se">\n</span><span class="si">{</span><span class="n">wine_df</span><span class="p">[</span><span class="s1">'wine_type'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 2. Data preprocessing</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== DATA PREPROCESSING ==="</span><span class="p">)</span>
+
+<span class="c1"># Separate features and target for cancer dataset</span>
+<span class="c1"># Drop target and diagnosis columns to get feature matrix</span>
+<span class="n">X_cancer</span> <span class="o">=</span> <span class="n">cancer_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'target', 'diagnosis', 1</span>
+<span class="c1"># Extract target variable</span>
+<span class="n">y_cancer</span> <span class="o">=</span> <span class="n">cancer_df</span><span class="p">[</span><span class="s1">'__________'</span><span class="p">]</span> <span class="c1"># use 'target'</span>
+
+<span class="c1"># Split the cancer dataset</span>
+<span class="n">X_train_c</span><span class="p">,</span> <span class="n">X_test_c</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span> <span class="n">y_test_c</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_cancer</span><span class="p">,</span> <span class="n">y_cancer</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_cancer</span> <span class="c1"># use 0.2, 42</span>
+<span class="p">)</span>
+
+<span class="c1"># Scale the features</span>
+<span class="c1"># Create StandardScaler instance for feature normalization</span>
+<span class="n">scaler_cancer</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="c1"># Fit scaler to training data and transform both training and test sets</span>
+<span class="n">X_train_c_scaled</span> <span class="o">=</span> <span class="n">scaler_cancer</span><span class="o">.</span><span class="n">__________transform</span><span class="p">(</span><span class="n">X_train_c</span><span class="p">)</span> <span class="c1"># use 'fit_'</span>
+<span class="n">X_test_c_scaled</span> <span class="o">=</span> <span class="n">scaler_cancer</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'transform'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cancer dataset - Training set shape: </span><span class="si">{</span><span class="n">X_train_c_scaled</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cancer dataset - Test set shape: </span><span class="si">{</span><span class="n">X_test_c_scaled</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 3. Individual Models</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== INDIVIDUAL MODELS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create individual models dictionary</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Logistic Regression'</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 42, 1000</span>
+    <span class="s1">'Random Forest'</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 100, 42</span>
+    <span class="s1">'Gradient Boosting'</span><span class="p">:</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 42</span>
+    <span class="s1">'SVM'</span><span class="p">:</span> <span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use True, 42</span>
+<span class="p">}</span>
+
+<span class="c1"># Train and evaluate individual models</span>
+<span class="n">individual_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Train the model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+    
+    <span class="c1"># Make predictions</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'predict'</span>
+    <span class="c1"># Get prediction probabilities for AUC calculation</span>
+    <span class="n">y_pred_proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_c_scaled</span><span class="p">)[:,</span> <span class="n">__________</span><span class="p">]</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'predict_proba'</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span> <span class="c1"># use 1</span>
+    
+    <span class="c1"># Calculate metrics</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_c</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test_c</span><span class="p">,</span> <span class="n">y_pred_proba</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_pred_proba</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+    
+    <span class="n">individual_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'accuracy'</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span> <span class="s1">'auc'</span><span class="p">:</span> <span class="n">auc</span><span class="p">}</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, AUC: </span><span class="si">{</span><span class="n">auc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">auc</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 4. Ensemble Methods</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== ENSEMBLE METHODS ==="</span><span class="p">)</span>
+
+<span class="c1"># Random Forest with hyperparameter tuning</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Random Forest Hyperparameter Tuning:"</span><span class="p">)</span>
+<span class="c1"># Define parameter grid for Random Forest</span>
+<span class="n">rf_param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use 50, 100, 200</span>
+    <span class="s1">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use None, 10, 20</span>
+    <span class="s1">'min_samples_split'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 2, 5, 10</span>
+<span class="p">}</span>
+
+<span class="c1"># Create GridSearchCV for Random Forest</span>
+<span class="n">rf_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">rf_param_grid</span><span class="p">,</span>
+    <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use 5</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'accuracy'</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use -1</span>
+<span class="p">)</span>
+<span class="n">rf_grid</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best Random Forest parameters: </span><span class="si">{</span><span class="n">rf_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best Random Forest CV score: </span><span class="si">{</span><span class="n">rf_grid</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Gradient Boosting with hyperparameter tuning</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Gradient Boosting Hyperparameter Tuning:"</span><span class="p">)</span>
+<span class="c1"># Define parameter grid for Gradient Boosting</span>
+<span class="n">gb_param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use 50, 100, 200</span>
+    <span class="s1">'learning_rate'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use 0.01, 0.1, 0.2</span>
+    <span class="s1">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 3, 5, 7</span>
+<span class="p">}</span>
+
+<span class="c1"># Create GridSearchCV for Gradient Boosting</span>
+<span class="n">gb_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">gb_param_grid</span><span class="p">,</span>
+    <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use 5</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'accuracy'</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use -1</span>
+<span class="p">)</span>
+<span class="n">gb_grid</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best Gradient Boosting parameters: </span><span class="si">{</span><span class="n">gb_grid</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best Gradient Boosting CV score: </span><span class="si">{</span><span class="n">gb_grid</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Voting Classifier</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Voting Classifier:"</span><span class="p">)</span>
+<span class="c1"># Create VotingClassifier with multiple base estimators</span>
+<span class="n">voting_clf</span> <span class="o">=</span> <span class="n">VotingClassifier</span><span class="p">(</span>
+    <span class="n">estimators</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s1">'lr'</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'rf'</span><span class="p">,</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'gb'</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+    <span class="p">],</span>
+    <span class="n">voting</span><span class="o">=</span><span class="s1">'__________'</span>  <span class="c1"># use 'soft' for predicted probabilities</span>
+<span class="p">)</span>
+
+<span class="n">voting_clf</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+<span class="n">voting_pred</span> <span class="o">=</span> <span class="n">voting_clf</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'predict'</span>
+<span class="n">voting_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_c</span><span class="p">,</span> <span class="n">voting_pred</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Voting Classifier Accuracy: </span><span class="si">{</span><span class="n">voting_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 5. Model Comparison and Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== MODEL COMPARISON AND ANALYSIS ==="</span><span class="p">)</span>
+
+<span class="c1"># Create comparison DataFrame</span>
+<span class="n">comparison_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">individual_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">comparison_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">'Model'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s1">'Accuracy'</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">'accuracy'</span><span class="p">],</span>
+        <span class="s1">'AUC'</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">'auc'</span><span class="p">]</span> <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="s1">'auc'</span><span class="p">]</span> <span class="k">else</span> <span class="s1">'N/A'</span>
+    <span class="p">})</span>
+
+<span class="c1"># Add ensemble results</span>
+<span class="n">comparison_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s1">'Model'</span><span class="p">:</span> <span class="s1">'Random Forest (Tuned)'</span><span class="p">,</span>
+    <span class="s1">'Accuracy'</span><span class="p">:</span> <span class="n">rf_grid</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_c_scaled</span><span class="p">,</span> <span class="n">y_test_c</span><span class="p">),</span>
+    <span class="s1">'AUC'</span><span class="p">:</span> <span class="s1">'N/A'</span>
+<span class="p">})</span>
+
+<span class="n">comparison_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s1">'Model'</span><span class="p">:</span> <span class="s1">'Gradient Boosting (Tuned)'</span><span class="p">,</span>
+    <span class="s1">'Accuracy'</span><span class="p">:</span> <span class="n">gb_grid</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_c_scaled</span><span class="p">,</span> <span class="n">y_test_c</span><span class="p">),</span>
+    <span class="s1">'AUC'</span><span class="p">:</span> <span class="s1">'N/A'</span>
+<span class="p">})</span>
+
+<span class="n">comparison_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s1">'Model'</span><span class="p">:</span> <span class="s1">'Voting Classifier'</span><span class="p">,</span>
+    <span class="s1">'Accuracy'</span><span class="p">:</span> <span class="n">voting_accuracy</span><span class="p">,</span>
+    <span class="s1">'AUC'</span><span class="p">:</span> <span class="s1">'N/A'</span>
+<span class="p">})</span>
+
+<span class="n">comparison_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">comparison_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Model Comparison:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison_df</span><span class="p">)</span>
+
+<span class="c1"># Find the best model</span>
+<span class="n">best_accuracy</span> <span class="o">=</span> <span class="n">comparison_df</span><span class="p">[</span><span class="s1">'Accuracy'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">best_model_name</span> <span class="o">=</span> <span class="n">comparison_df</span><span class="p">[</span><span class="n">comparison_df</span><span class="p">[</span><span class="s1">'Accuracy'</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_accuracy</span><span class="p">][</span><span class="s1">'Model'</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Best performing model: </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2"> with accuracy: </span><span class="si">{</span><span class="n">best_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 6. Feature Importance Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== FEATURE IMPORTANCE ANALYSIS ==="</span><span class="p">)</span>
+
+<span class="c1"># Get feature importance from the best Random Forest model</span>
+<span class="n">feature_importance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'feature'</span><span class="p">:</span> <span class="n">X_cancer</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+    <span class="s1">'importance'</span><span class="p">:</span> <span class="n">rf_grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'importance', False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Top 10 Most Important Features:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature_importance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">))</span> <span class="c1"># use 10</span>
+
+<span class="c1"># Plot feature importance</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 12, 8</span>
+<span class="n">top_features</span> <span class="o">=</span> <span class="n">feature_importance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 15</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features</span><span class="p">)),</span> <span class="n">top_features</span><span class="p">[</span><span class="s1">'importance'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features</span><span class="p">)),</span> <span class="n">top_features</span><span class="p">[</span><span class="s1">'feature'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Feature Importance'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Top 15 Most Important Features (Random Forest)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 7. Cross-validation Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== CROSS-VALIDATION ANALYSIS ==="</span><span class="p">)</span>
+
+<span class="c1"># Perform cross-validation on the best models</span>
+<span class="n">cv_models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Random Forest (Tuned)'</span><span class="p">:</span> <span class="n">rf_grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span>
+    <span class="s1">'Gradient Boosting (Tuned)'</span><span class="p">:</span> <span class="n">gb_grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span>
+    <span class="s1">'Voting Classifier'</span><span class="p">:</span> <span class="n">voting_clf</span>
+<span class="p">}</span>
+
+<span class="n">cv_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">cv_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 5, 'accuracy'</span>
+    <span class="n">cv_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_scores</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> - CV Mean: </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (+/- </span><span class="si">{</span><span class="n">cv_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">__________</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span> <span class="c1"># use 2</span>
+
+<span class="c1"># Plot cross-validation results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 10, 6</span>
+<span class="n">cv_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cv_results</span><span class="p">)</span>
+<span class="n">cv_df</span><span class="o">.</span><span class="n">boxplot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Cross-Validation Results Comparison'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Accuracy'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 45</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== EXERCISE 1 COMPLETED ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"You have successfully implemented and compared ensemble methods!"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Key takeaways:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Ensemble methods often outperform individual models"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Hyperparameter tuning can significantly improve performance"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Feature importance helps identify the most predictive features"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Cross-validation provides robust performance estimates"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<hr/>
+<h2 id="Exercise-2:-Model-Selection-and-Hyperparameter-Tuning-(20-points)">Exercise 2: Model Selection and Hyperparameter Tuning (20 points)<a class="anchor-link" href="#Exercise-2:-Model-Selection-and-Hyperparameter-Tuning-(20-points)">¶</a></h2><p><strong>Task:</strong> Implement advanced model selection techniques and hyperparameter optimization.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use GridSearchCV and RandomizedSearchCV for hyperparameter tuning</li>
+<li>Implement learning curves and validation curves</li>
+<li>Compare different optimization strategies</li>
+<li>Analyze model complexity vs. performance trade-offs</li>
 </ul>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Complete the following tasks for model selection and hyperparameter tuning</span>
+
+<span class="c1"># Import additional libraries for model selection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomizedSearchCV</span><span class="p">,</span> <span class="n">learning_curve</span><span class="p">,</span> <span class="n">validation_curve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span><span class="p">,</span> <span class="n">uniform</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== MODEL SELECTION AND HYPERPARAMETER TUNING ==="</span><span class="p">)</span>
+
+<span class="c1"># 1. Advanced Hyperparameter Tuning with RandomizedSearchCV</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">1. RANDOMIZED SEARCH CV"</span><span class="p">)</span>
+
+<span class="c1"># Define parameter distributions for RandomizedSearchCV</span>
+<span class="n">rf_distributions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n_estimators'</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># use 50, 300</span>
+    <span class="s1">'max_depth'</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># use 3, 20</span>
+    <span class="s1">'min_samples_split'</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># use 2, 20</span>
+    <span class="s1">'min_samples_leaf'</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># use 1, 10</span>
+    <span class="s1">'max_features'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'__________'</span><span class="p">,</span> <span class="s1">'__________'</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 'sqrt', 'log2', None</span>
+<span class="p">}</span>
+
+<span class="c1"># Perform RandomizedSearchCV for Random Forest</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Random Forest Randomized Search:"</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">rf_random</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
+    <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="n">rf_distributions</span><span class="p">,</span>
+    <span class="n">n_iter</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span>  <span class="c1"># use 50 for number of parameter settings sampled</span>
+    <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use 5</span>
+    <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="c1"># use 'accuracy'</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use 42</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use -1</span>
+<span class="p">)</span>
+<span class="n">rf_random</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'fit'</span>
+<span class="n">rf_random_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best parameters: </span><span class="si">{</span><span class="n">rf_random</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best cross-validation score: </span><span class="si">{</span><span class="n">rf_random</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Time taken: </span><span class="si">{</span><span class="n">rf_random_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
+
+<span class="c1"># 2. Learning Curves Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">2. LEARNING CURVES ANALYSIS"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_learning_curve</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Generate a simple plot of the test and training learning curve.</span>
+<span class="sd">    """</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 10, 6</span>
+    
+    <span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">learning_curve</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="c1"># use cv, n_jobs</span>
+        <span class="n">train_sizes</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">),</span> <span class="c1"># use 0.1, 1.0, 10</span>
+        <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span> <span class="c1"># use 'accuracy'</span>
+    <span class="p">)</span>
+    
+    <span class="n">train_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">train_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">test_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">test_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_mean</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Training score'</span><span class="p">)</span> <span class="c1"># use 'blue'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">train_mean</span> <span class="o">-</span> <span class="n">train_std</span><span class="p">,</span> <span class="n">train_mean</span> <span class="o">+</span> <span class="n">train_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 0.1, 'blue'</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_mean</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Cross-validation score'</span><span class="p">)</span> <span class="c1"># use 'red'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">train_sizes</span><span class="p">,</span> <span class="n">test_mean</span> <span class="o">-</span> <span class="n">test_std</span><span class="p">,</span> <span class="n">test_mean</span> <span class="o">+</span> <span class="n">test_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 0.1, 'red'</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Training Set Size'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Accuracy Score'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'best'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0.3</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot learning curves for different models</span>
+<span class="n">models_for_learning</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Random Forest'</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 100, 42</span>
+    <span class="s1">'Logistic Regression'</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">__________</span><span class="p">),</span> <span class="c1"># use 42, 1000</span>
+    <span class="s1">'Gradient Boosting'</span><span class="p">:</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 42</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models_for_learning</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plot_learning_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Learning Curves - </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">)</span>
+
+<span class="c1"># 3. Validation Curves Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">3. VALIDATION CURVES ANALYSIS"</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_validation_curve</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_range</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Generate a simple plot of the validation curve.</span>
+<span class="sd">    """</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 10, 6</span>
+    
+    <span class="n">train_scores</span><span class="p">,</span> <span class="n">test_scores</span> <span class="o">=</span> <span class="n">validation_curve</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">param_name</span><span class="o">=</span><span class="n">param_name</span><span class="p">,</span> <span class="n">param_range</span><span class="o">=</span><span class="n">param_range</span><span class="p">,</span>
+        <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">__________</span> <span class="c1"># use 5, 'accuracy', -1</span>
+    <span class="p">)</span>
+    
+    <span class="n">train_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">train_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">train_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">test_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    <span class="n">test_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">param_range</span><span class="p">,</span> <span class="n">train_mean</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Training score'</span><span class="p">)</span> <span class="c1"># use 'blue'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">param_range</span><span class="p">,</span> <span class="n">train_mean</span> <span class="o">-</span> <span class="n">train_std</span><span class="p">,</span> <span class="n">train_mean</span> <span class="o">+</span> <span class="n">train_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 0.1, 'blue'</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">param_range</span><span class="p">,</span> <span class="n">test_mean</span><span class="p">,</span> <span class="s1">'o-'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Cross-validation score'</span><span class="p">)</span> <span class="c1"># use 'red'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">param_range</span><span class="p">,</span> <span class="n">test_mean</span> <span class="o">-</span> <span class="n">test_std</span><span class="p">,</span> <span class="n">test_mean</span> <span class="o">+</span> <span class="n">test_std</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 0.1, 'red'</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">param_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Accuracy Score'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'__________'</span><span class="p">)</span> <span class="c1"># use 'best'</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 0.3</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Validation curve for Random Forest n_estimators</span>
+<span class="n">param_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 10, 50, 100, 150, 200, 250, 300</span>
+<span class="n">plot_validation_curve</span><span class="p">(</span>
+    <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="s1">'Validation Curve - Random Forest (n_estimators)'</span><span class="p">,</span>
+    <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span>
+    <span class="s1">'__________'</span><span class="p">,</span> <span class="n">param_range</span> <span class="c1"># use 'n_estimators'</span>
+<span class="p">)</span>
+
+<span class="c1"># Validation curve for Random Forest max_depth</span>
+<span class="n">param_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 1, 3, 5, 7, 10, 15, 20, None</span>
+<span class="n">plot_validation_curve</span><span class="p">(</span>
+    <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+    <span class="s1">'Validation Curve - Random Forest (max_depth)'</span><span class="p">,</span>
+    <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span>
+    <span class="s1">'__________'</span><span class="p">,</span> <span class="n">param_range</span> <span class="c1"># use 'max_depth'</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Model Complexity Analysis</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">4. MODEL COMPLEXITY ANALYSIS"</span><span class="p">)</span>
+
+<span class="c1"># Test different complexity levels for Random Forest</span>
+<span class="n">complexity_params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use 10, 50, 100, 200</span>
+    <span class="s1">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">],</span> <span class="c1"># use 1, 3, 5, 10, None</span>
+    <span class="s1">'min_samples_split'</span><span class="p">:</span> <span class="p">[</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">]</span> <span class="c1"># use 2, 5, 10, 20</span>
+<span class="p">}</span>
+
+<span class="n">complexity_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Test n_estimators complexity</span>
+<span class="k">for</span> <span class="n">n_est</span> <span class="ow">in</span> <span class="n">complexity_params</span><span class="p">[</span><span class="s1">'n_estimators'</span><span class="p">]:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_est</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 5</span>
+    <span class="n">complexity_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">'Parameter'</span><span class="p">:</span> <span class="s1">'n_estimators'</span><span class="p">,</span>
+        <span class="s1">'Value'</span><span class="p">:</span> <span class="n">n_est</span><span class="p">,</span>
+        <span class="s1">'Mean_CV_Score'</span><span class="p">:</span> <span class="n">cv_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">'Std_CV_Score'</span><span class="p">:</span> <span class="n">cv_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="p">})</span>
+
+<span class="c1"># Test max_depth complexity</span>
+<span class="k">for</span> <span class="n">max_depth</span> <span class="ow">in</span> <span class="n">complexity_params</span><span class="p">[</span><span class="s1">'max_depth'</span><span class="p">]:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train_c_scaled</span><span class="p">,</span> <span class="n">y_train_c</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 5</span>
+    <span class="n">complexity_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">'Parameter'</span><span class="p">:</span> <span class="s1">'max_depth'</span><span class="p">,</span>
+        <span class="s1">'Value'</span><span class="p">:</span> <span class="n">max_depth</span><span class="p">,</span>
+        <span class="s1">'Mean_CV_Score'</span><span class="p">:</span> <span class="n">cv_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="s1">'Std_CV_Score'</span><span class="p">:</span> <span class="n">cv_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="p">})</span>
+
+<span class="c1"># Convert to DataFrame and display results</span>
+<span class="n">complexity_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">complexity_results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Model Complexity Analysis:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">complexity_df</span><span class="p">)</span>
+
+<span class="c1"># 5. Hyperparameter Tuning Comparison</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">5. HYPERPARAMETER TUNING COMPARISON"</span><span class="p">)</span>
+
+<span class="c1"># Compare GridSearchCV vs RandomizedSearchCV performance</span>
+<span class="n">comparison_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># GridSearchCV results (from Exercise 1)</span>
+<span class="n">comparison_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s1">'Method'</span><span class="p">:</span> <span class="s1">'GridSearchCV'</span><span class="p">,</span>
+    <span class="s1">'Best_Score'</span><span class="p">:</span> <span class="n">rf_grid</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span>
+    <span class="s1">'Time_Seconds'</span><span class="p">:</span> <span class="n">__________</span><span class="p">,</span>  <span class="c1"># use 0 (would need to measure)</span>
+    <span class="s1">'Parameters_Tested'</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rf_param_grid</span><span class="p">[</span><span class="s1">'n_estimators'</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rf_param_grid</span><span class="p">[</span><span class="s1">'max_depth'</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rf_param_grid</span><span class="p">[</span><span class="s1">'min_samples_split'</span><span class="p">])</span>
+<span class="p">})</span>
+
+<span class="c1"># RandomizedSearchCV results</span>
+<span class="n">comparison_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s1">'Method'</span><span class="p">:</span> <span class="s1">'RandomizedSearchCV'</span><span class="p">,</span>
+    <span class="s1">'Best_Score'</span><span class="p">:</span> <span class="n">rf_random</span><span class="o">.</span><span class="n">best_score_</span><span class="p">,</span>
+    <span class="s1">'Time_Seconds'</span><span class="p">:</span> <span class="n">rf_random_time</span><span class="p">,</span>
+    <span class="s1">'Parameters_Tested'</span><span class="p">:</span> <span class="n">__________</span> <span class="c1"># use 50</span>
+<span class="p">})</span>
+
+<span class="n">comparison_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">comparison_results</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Hyperparameter Tuning Comparison:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">comparison_df</span><span class="p">)</span>
+
+<span class="c1"># 6. Final Model Evaluation</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">6. FINAL MODEL EVALUATION"</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the best model from RandomizedSearchCV</span>
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">rf_random</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="n">best_pred</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">__________</span> <span class="c1"># use 'predict'</span>
+<span class="n">best_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_c</span><span class="p">,</span> <span class="n">best_pred</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best model accuracy on test set: </span><span class="si">{</span><span class="n">best_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best model parameters: </span><span class="si">{</span><span class="n">rf_random</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Feature importance from best model</span>
+<span class="n">feature_importance_best</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'feature'</span><span class="p">:</span> <span class="n">X_cancer</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+    <span class="s1">'importance'</span><span class="p">:</span> <span class="n">best_model</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'__________'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 'importance', False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Top 5 Most Important Features (Best Model):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature_importance_best</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Plot feature importance comparison</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">))</span> <span class="c1"># use 15, 6</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1, 2, 1</span>
+<span class="n">top_features_original</span> <span class="o">=</span> <span class="n">feature_importance</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features_original</span><span class="p">)),</span> <span class="n">top_features_original</span><span class="p">[</span><span class="s1">'importance'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features_original</span><span class="p">)),</span> <span class="n">top_features_original</span><span class="p">[</span><span class="s1">'feature'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Feature Importance'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Original Random Forest'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">,</span> <span class="n">__________</span><span class="p">)</span> <span class="c1"># use 1, 2, 2</span>
+<span class="n">top_features_best</span> <span class="o">=</span> <span class="n">feature_importance_best</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">__________</span><span class="p">)</span> <span class="c1"># use 10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features_best</span><span class="p">)),</span> <span class="n">top_features_best</span><span class="p">[</span><span class="s1">'importance'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_features_best</span><span class="p">)),</span> <span class="n">top_features_best</span><span class="p">[</span><span class="s1">'feature'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Feature Importance'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Optimized Random Forest'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">=== EXERCISE 2 COMPLETED ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Key insights from model selection and hyperparameter tuning:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- RandomizedSearchCV can find good parameters faster than GridSearchCV"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Learning curves help identify if more data would improve performance"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Validation curves show optimal parameter values"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Model complexity should be balanced with performance"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"- Feature importance can change with hyperparameter optimization"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 </div>
 </div>
 </div>
 </div>
 </main>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('Adding clean cell and line numbers to notebook...');
-        
-        let cellCounter = 1;
-        
-        function hideOriginalPrompts() {
-            // Hide all original Jupyter execution numbers
-            const prompts = document.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-            prompts.forEach(function(prompt) {
-                prompt.style.display = 'none';
-                prompt.style.visibility = 'hidden';
-                prompt.style.width = '0';
-                prompt.style.height = '0';
-                prompt.style.overflow = 'hidden';
-            });
-            console.log('Hidden', prompts.length, 'original execution prompts');
-        }
-        
-        function addCleanCellNumber(cell) {
-            if (cell.hasAttribute('data-cell-numbered')) {
-                return;
-            }
-            
-            cell.setAttribute('data-cell-number', cellCounter.toString());
-            cell.setAttribute('data-cell-numbered', 'true');
-            console.log('Added clean cell number:', cellCounter);
-            cellCounter++;
-        }
-        
-        function addLineNumbersToElement(element) {
-            if (element.hasAttribute('data-line-numbers-added')) {
-                return;
-            }
-            
-            const text = element.textContent || element.innerText;
-            const lines = text.split('\n');
-            
-            // Generate line numbers with proper padding
-            const lineNumbers = [];
-            for (let i = 0; i < lines.length; i++) {
-                lineNumbers.push(String(i + 1).padStart(3, ' '));
-            }
-            
-            // Add line numbers as data attribute
-            element.setAttribute('data-line-numbers', lineNumbers.join('\n'));
-            element.setAttribute('data-line-numbers-added', 'true');
-            
-            // Ensure proper positioning
-            element.style.position = 'relative';
-            element.style.paddingLeft = '6em';
-            element.style.marginLeft = '0';
-            
-            console.log('Added line numbers to element, total lines:', lines.length);
-        }
-        
-        // First, hide all original prompts
-        hideOriginalPrompts();
-        
-        // Add cell numbers to all cells
-        const cells = document.querySelectorAll('.cell');
-        console.log('Found', cells.length, 'cells');
-        
-        cells.forEach(addCleanCellNumber);
-        
-        // Find all code cells and add line numbers
-        const codeElements = document.querySelectorAll('.input_area pre, .highlight pre');
-        console.log('Found', codeElements.length, 'code elements');
-        
-        codeElements.forEach(addLineNumbersToElement);
-        
-        // Also handle any dynamically loaded content
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
-                    // Hide any new prompts that might appear
-                    const newPrompts = mutation.target.querySelectorAll('.prompt, .prompt_container, .input_prompt, .output_prompt');
-                    newPrompts.forEach(function(prompt) {
-                        prompt.style.display = 'none';
-                        prompt.style.visibility = 'hidden';
-                    });
-                    
-                    // Add cell numbers to new cells
-                    const newCells = mutation.target.querySelectorAll('.cell:not([data-cell-numbered])');
-                    newCells.forEach(addCleanCellNumber);
-                    
-                    // Add line numbers to new code elements
-                    const newCodeElements = mutation.target.querySelectorAll('.input_area pre:not([data-line-numbers-added]), .highlight pre:not([data-line-numbers-added])');
-                    newCodeElements.forEach(addLineNumbersToElement);
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        // Force re-render after a short delay
-        setTimeout(function() {
-            codeElements.forEach(function(element) {
-                if (element.hasAttribute('data-line-numbers')) {
-                    // Force re-render by temporarily hiding and showing
-                    const originalDisplay = element.style.display;
-                    element.style.display = 'none';
-                    element.offsetHeight; // Trigger reflow
-                    element.style.display = originalDisplay || 'block';
-                }
-            });
-            
-            // Ensure prompts stay hidden
-            hideOriginalPrompts();
-        }, 100);
-        
-        console.log('Clean cell and line numbering setup complete');
-    });
-    </script>
-    </body>
+</body>
 </html>

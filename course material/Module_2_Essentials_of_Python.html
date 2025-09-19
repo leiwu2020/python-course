@@ -7794,59 +7794,1061 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Final-Project-Presentations-&amp;-Wrap-up">Final Project Presentations &amp; Wrap-up<a class="anchor-link" href="#Final-Project-Presentations-&amp;-Wrap-up">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
+<h1 id="Module-2:-Essentials-of-Python">Module 2: Essentials of Python<a class="anchor-link" href="#Module-2:-Essentials-of-Python">¶</a></h1><p><strong>Author:</strong> Lei Wu<br/>
 <strong>Date:</strong> 2023-01-01<br/>
 <strong>Version:</strong> 1.0.0</p>
 <h2 id="Learning-Objectives">Learning Objectives<a class="anchor-link" href="#Learning-Objectives">¶</a></h2><ul>
-<li>Present final projects effectively</li>
-<li>Peer review and feedback</li>
-<li>Course reflection and assessment</li>
-<li>Next steps in Python/data science journey</li>
-<li>Building a professional portfolio</li>
+<li>Advanced Python data structures</li>
+<li>Object-oriented programming concepts</li>
+<li>File handling and I/O operations</li>
+<li>Exception handling</li>
+<li>List comprehensions and advanced features</li>
 </ul>
-<h2 id="Session-Structure">Session Structure<a class="anchor-link" href="#Session-Structure">¶</a></h2><ol>
-<li><p><strong>Project Presentations</strong> (60 minutes)</p>
-<ul>
-<li>5-7 minutes per student presentation</li>
-<li>Q&amp;A and feedback session</li>
-<li>Peer evaluation</li>
-</ul>
-</li>
-<li><p><strong>Course Reflection</strong> (20 minutes)</p>
-<ul>
-<li>Key takeaways and learnings</li>
-<li>Challenges overcome</li>
-<li>Skills developed</li>
-</ul>
-</li>
-<li><p><strong>Next Steps</strong> (15 minutes)</p>
-<ul>
-<li>Advanced topics to explore</li>
-<li>Professional development resources</li>
-<li>Building a data science portfolio</li>
-</ul>
-</li>
-<li><p><strong>Course Wrap-up</strong> (5 minutes)</p>
-<ul>
-<li>Final thoughts and feedback</li>
-<li>Certificate distribution</li>
-<li>Contact information for continued learning</li>
-</ul>
-</li>
+<h2 id="Topics-Covered">Topics Covered<a class="anchor-link" href="#Topics-Covered">¶</a></h2><ol>
+<li>Lists, tuples, and dictionaries</li>
+<li>Sets and their operations</li>
+<li>String manipulation and formatting</li>
+<li>List comprehensions and generator expressions</li>
+<li>Object-oriented programming basics</li>
+<li>Classes and objects</li>
+<li>Inheritance and polymorphism</li>
+<li>File reading and writing</li>
+<li>Exception handling (try/except/finally)</li>
+<li>Regular expressions</li>
+<li>Working with dates and time</li>
 </ol>
-<h2 id="Presentation-Guidelines">Presentation Guidelines<a class="anchor-link" href="#Presentation-Guidelines">¶</a></h2><ul>
-<li>Keep presentations concise and focused</li>
-<li>Highlight key findings and insights</li>
-<li>Show your code and methodology</li>
-<li>Discuss challenges and solutions</li>
-<li>Share lessons learned</li>
+<h2 id="Exercises">Exercises<a class="anchor-link" href="#Exercises">¶</a></h2><ul>
+<li>Hands-on coding exercises for each topic</li>
 </ul>
-<h2 id="Resources-for-Continued-Learning">Resources for Continued Learning<a class="anchor-link" href="#Resources-for-Continued-Learning">¶</a></h2><ul>
-<li>Advanced Python courses</li>
-<li>Specialized data science tracks</li>
-<li>Open source project contributions</li>
-<li>Professional networking and communities</li>
-</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="1.-Lists,-Tuples,-and-Dictionaries">1. Lists, Tuples, and Dictionaries<a class="anchor-link" href="#1.-Lists,-Tuples,-and-Dictionaries">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Lists - mutable ordered collection</span>
+<span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"apple"</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original list: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List operations</span>
+<span class="n">fruits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"grape"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After append: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fruits</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"mango"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After insert: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">fruits</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">"banana"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After remove: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List slicing</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First two items: </span><span class="si">{</span><span class="n">fruits</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Last two items: </span><span class="si">{</span><span class="n">fruits</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Tuples - immutable ordered collection</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coordinates: </span><span class="si">{</span><span class="n">coordinates</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"X coordinate: </span><span class="si">{</span><span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Tuple unpacking</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coordinates</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"X: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, Y: </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionaries - key-value pairs</span>
+<span class="n">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Alice"</span><span class="p">,</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s2">"city"</span><span class="p">:</span> <span class="s2">"New York"</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Person: </span><span class="si">{</span><span class="n">person</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Name: </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Age: </span><span class="si">{</span><span class="n">person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'age'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Unknown'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionary operations</span>
+<span class="n">person</span><span class="p">[</span><span class="s2">"occupation"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Engineer"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After adding occupation: </span><span class="si">{</span><span class="n">person</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Iterating through dictionary</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Original list: ['apple', 'banana', 'orange']
+After append: ['apple', 'banana', 'orange', 'grape']
+After insert: ['apple', 'mango', 'banana', 'orange', 'grape']
+After remove: ['apple', 'mango', 'orange', 'grape']
+First two items: ['apple', 'mango']
+Last two items: ['orange', 'grape']
+Coordinates: (10, 20)
+X coordinate: 10
+X: 10, Y: 20
+Person: {'name': 'Alice', 'age': 30, 'city': 'New York'}
+Name: Alice
+Age: 30
+After adding occupation: {'name': 'Alice', 'age': 30, 'city': 'New York', 'occupation': 'Engineer'}
+name: Alice
+age: 30
+city: New York
+occupation: Engineer
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="2.-Sets-and-Their-Operations">2. Sets and Their Operations<a class="anchor-link" href="#2.-Sets-and-Their-Operations">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Creating sets</span>
+<span class="n">fruits</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"apple"</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">,</span> <span class="s2">"apple"</span><span class="p">}</span>  <span class="c1"># Duplicates removed</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fruits set: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># From list</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Numbers set: </span><span class="si">{</span><span class="n">numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Set operations</span>
+<span class="n">set1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="n">set2</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Set 1: </span><span class="si">{</span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Set 2: </span><span class="si">{</span><span class="n">set2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Union</span>
+<span class="n">union</span> <span class="o">=</span> <span class="n">set1</span> <span class="o">|</span> <span class="n">set2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Union: </span><span class="si">{</span><span class="n">union</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Intersection</span>
+<span class="n">intersection</span> <span class="o">=</span> <span class="n">set1</span> <span class="o">&amp;</span> <span class="n">set2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intersection: </span><span class="si">{</span><span class="n">intersection</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Difference</span>
+<span class="n">difference</span> <span class="o">=</span> <span class="n">set1</span> <span class="o">-</span> <span class="n">set2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Set1 - Set2: </span><span class="si">{</span><span class="n">difference</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Symmetric difference</span>
+<span class="n">symmetric_diff</span> <span class="o">=</span> <span class="n">set1</span> <span class="o">^</span> <span class="n">set2</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Symmetric difference: </span><span class="si">{</span><span class="n">symmetric_diff</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Set methods</span>
+<span class="n">set1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After adding 6: </span><span class="si">{</span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">set1</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After removing 1: </span><span class="si">{</span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Check membership</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is 3 in set1? </span><span class="si">{</span><span class="mi">3</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is 10 in set1? </span><span class="si">{</span><span class="mi">10</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">set1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Fruits set: {'apple', 'orange', 'banana'}
+Numbers set: {1, 2, 3, 4, 5}
+Set 1: {1, 2, 3, 4, 5}
+Set 2: {4, 5, 6, 7, 8}
+Union: {1, 2, 3, 4, 5, 6, 7, 8}
+Intersection: {4, 5}
+Set1 - Set2: {1, 2, 3}
+Symmetric difference: {1, 2, 3, 6, 7, 8}
+After adding 6: {1, 2, 3, 4, 5, 6}
+After removing 1: {2, 3, 4, 5, 6}
+Is 3 in set1? True
+Is 10 in set1? False
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="3.-String-Manipulation-and-Formatting">3. String Manipulation and Formatting<a class="anchor-link" href="#3.-String-Manipulation-and-Formatting">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Basic string operations</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"Hello, World!"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Uppercase: </span><span class="si">{</span><span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Lowercase: </span><span class="si">{</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Title case: </span><span class="si">{</span><span class="n">text</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># String methods</span>
+<span class="n">sentence</span> <span class="o">=</span> <span class="s2">"  Python is awesome!  "</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: '</span><span class="si">{</span><span class="n">sentence</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Stripped: '</span><span class="si">{</span><span class="n">sentence</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Left stripped: '</span><span class="si">{</span><span class="n">sentence</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Right stripped: '</span><span class="si">{</span><span class="n">sentence</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+
+<span class="c1"># String splitting and joining</span>
+<span class="n">words</span> <span class="o">=</span> <span class="s2">"apple,banana,orange,grape"</span>
+<span class="n">fruit_list</span> <span class="o">=</span> <span class="n">words</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Split by comma: </span><span class="si">{</span><span class="n">fruit_list</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">joined</span> <span class="o">=</span> <span class="s2">" | "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fruit_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Joined with ' | ': </span><span class="si">{</span><span class="n">joined</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># String formatting methods</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">"Alice"</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="c1"># f-string (Python 3.6+)</span>
+<span class="n">message1</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">! You are </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old."</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"f-string: </span><span class="si">{</span><span class="n">message1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># .format() method</span>
+<span class="n">message2</span> <span class="o">=</span> <span class="s2">"Hello, </span><span class="si">{}</span><span class="s2">! You are </span><span class="si">{}</span><span class="s2"> years old."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">".format(): </span><span class="si">{</span><span class="n">message2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># % formatting</span>
+<span class="n">message3</span> <span class="o">=</span> <span class="s2">"Hello, </span><span class="si">%s</span><span class="s2">! You are </span><span class="si">%d</span><span class="s2"> years old."</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"% formatting: </span><span class="si">{</span><span class="n">message3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># String checking methods</span>
+<span class="n">email</span> <span class="o">=</span> <span class="s2">"user@example.com"</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is email alphanumeric? </span><span class="si">{</span><span class="n">email</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Is email lowercase? </span><span class="si">{</span><span class="n">email</span><span class="o">.</span><span class="n">islower</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Does email start with 'user'? </span><span class="si">{</span><span class="n">email</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'user'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Does email end with '.com'? </span><span class="si">{</span><span class="n">email</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.com'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># String replacement</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"I love Python programming"</span>
+<span class="n">new_text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"Python"</span><span class="p">,</span> <span class="s2">"Java"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Replaced: </span><span class="si">{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Original: Hello, World!
+Uppercase: HELLO, WORLD!
+Lowercase: hello, world!
+Title case: Hello, World!
+Length: 13
+Original: '  Python is awesome!  '
+Stripped: 'Python is awesome!'
+Left stripped: 'Python is awesome!  '
+Right stripped: '  Python is awesome!'
+Split by comma: ['apple', 'banana', 'orange', 'grape']
+Joined with ' | ': apple | banana | orange | grape
+f-string: Hello, Alice! You are 30 years old.
+.format(): Hello, Alice! You are 30 years old.
+% formatting: Hello, Alice! You are 30 years old.
+Is email alphanumeric? False
+Is email lowercase? True
+Does email start with 'user'? True
+Does email end with '.com'? True
+Original: I love Python programming
+Replaced: I love Java programming
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="4.-List-Comprehensions-and-Generator-Expressions">4. List Comprehensions and Generator Expressions<a class="anchor-link" href="#4.-List-Comprehensions-and-Generator-Expressions">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># List comprehensions</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="c1"># Basic list comprehension</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Squares: </span><span class="si">{</span><span class="n">squares</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List comprehension with condition</span>
+<span class="n">even_squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Even squares: </span><span class="si">{</span><span class="n">even_squares</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List comprehension with multiple conditions</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Numbers &gt; 5 and even: </span><span class="si">{</span><span class="n">filtered</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># List comprehension with if-else</span>
+<span class="n">categorized</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"even"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"odd"</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Categorized: </span><span class="si">{</span><span class="n">categorized</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Nested list comprehension</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">flattened</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">matrix</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Flattened matrix: </span><span class="si">{</span><span class="n">flattened</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Dictionary comprehension</span>
+<span class="n">squares_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Squares dictionary: </span><span class="si">{</span><span class="n">squares_dict</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Set comprehension</span>
+<span class="n">unique_lengths</span> <span class="o">=</span> <span class="p">{</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"apple"</span><span class="p">,</span> <span class="s2">"banana"</span><span class="p">,</span> <span class="s2">"grape"</span><span class="p">,</span> <span class="s2">"kiwi"</span><span class="p">]}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unique word lengths: </span><span class="si">{</span><span class="n">unique_lengths</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Generator expressions (memory efficient)</span>
+<span class="n">squares_gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generator: </span><span class="si">{</span><span class="n">squares_gen</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"First 5 squares: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">squares_gen</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Generator with condition</span>
+<span class="n">even_squares_gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Even squares generator: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">even_squares_gen</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Squares: [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+Even squares: [4, 16, 36, 64, 100]
+Numbers &gt; 5 and even: [6, 8, 10]
+Categorized: ['odd', 'even', 'odd', 'even', 'odd', 'even', 'odd', 'even', 'odd', 'even']
+Flattened matrix: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Squares dictionary: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+Unique word lengths: {4, 5, 6}
+Generator: &lt;generator object &lt;genexpr&gt; at 0x1113d53c0&gt;
+First 5 squares: [1, 4, 9, 16, 25]
+Even squares generator: [4, 16, 36, 64, 100]
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="5.-Object-Oriented-Programming-Basics">5. Object-Oriented Programming Basics<a class="anchor-link" href="#5.-Object-Oriented-Programming-Basics">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Basic class definition</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="p">:</span>
+    <span class="c1"># Class variable</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="s2">"Homo sapiens"</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+        <span class="c1"># Instance variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Hello, I'm </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and I'm </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old."</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">have_birthday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Happy birthday! Now I'm </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old."</span>
+
+<span class="c1"># Creating objects</span>
+<span class="n">person1</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">"Alice"</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">person2</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s2">"Bob"</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">person1</span><span class="o">.</span><span class="n">greet</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">person2</span><span class="o">.</span><span class="n">greet</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">person1</span><span class="o">.</span><span class="n">have_birthday</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Species: </span><span class="si">{</span><span class="n">Person</span><span class="o">.</span><span class="n">species</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Accessing attributes</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Person1 name: </span><span class="si">{</span><span class="n">person1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Person1 age: </span><span class="si">{</span><span class="n">person1</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Modifying attributes</span>
+<span class="n">person1</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">26</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Updated age: </span><span class="si">{</span><span class="n">person1</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Hello, I'm Alice and I'm 25 years old.
+Hello, I'm Bob and I'm 30 years old.
+Happy birthday! Now I'm 26 years old.
+Species: Homo sapiens
+Person1 name: Alice
+Person1 age: 26
+Updated age: 26
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="6.-Inheritance-and-Polymorphism">6. Inheritance and Polymorphism<a class="anchor-link" href="#6.-Inheritance-and-Polymorphism">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Base class</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">species</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="n">species</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Some generic animal sound"</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> moves around"</span>
+
+<span class="c1"># Derived class (inheritance)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">breed</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">"Canis lupus"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">breed</span> <span class="o">=</span> <span class="n">breed</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># Method overriding</span>
+        <span class="k">return</span> <span class="s2">"Woof! Woof!"</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> fetches the ball"</span>
+
+<span class="c1"># Another derived class</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">"Felis catus"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_sound</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># Method overriding</span>
+        <span class="k">return</span> <span class="s2">"Meow! Meow!"</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">climb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> climbs the tree"</span>
+
+<span class="c1"># Creating objects</span>
+<span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">"Buddy"</span><span class="p">,</span> <span class="s2">"Golden Retriever"</span><span class="p">)</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">(</span><span class="s2">"Whiskers"</span><span class="p">,</span> <span class="s2">"Orange"</span><span class="p">)</span>
+
+<span class="c1"># Polymorphism in action</span>
+<span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="n">dog</span><span class="p">,</span> <span class="n">cat</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">animal</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">animal</span><span class="o">.</span><span class="n">species</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">animal</span><span class="o">.</span><span class="n">make_sound</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">animal</span><span class="o">.</span><span class="n">move</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Accessing specific methods</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dog</span><span class="o">.</span><span class="n">fetch</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">climb</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Buddy (Canis lupus): Woof! Woof!
+Buddy moves around
+
+Whiskers (Felis catus): Meow! Meow!
+Whiskers moves around
+
+Buddy fetches the ball
+Whiskers climbs the tree
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="7.-File-Reading-and-Writing">7. File Reading and Writing<a class="anchor-link" href="#7.-File-Reading-and-Writing">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Writing to a file</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Hello, World!"</span><span class="p">,</span> <span class="s2">"This is a test file."</span><span class="p">,</span> <span class="s2">"Python is awesome!"</span><span class="p">]</span>
+
+<span class="c1"># Write mode</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"File written successfully!"</span><span class="p">)</span>
+
+<span class="c1"># Reading from a file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"File content:"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<span class="c1"># Reading line by line</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Reading line by line:"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Line </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Appending to a file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.txt"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"This line was appended.</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Line appended!"</span><span class="p">)</span>
+
+<span class="c1"># Reading the updated file</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Updated file content:"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"sample.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="c1"># Working with CSV-like data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="c1"># Writing CSV data</span>
+<span class="n">csv_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">"Name"</span><span class="p">,</span> <span class="s2">"Age"</span><span class="p">,</span> <span class="s2">"City"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Alice"</span><span class="p">,</span> <span class="s2">"25"</span><span class="p">,</span> <span class="s2">"New York"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Bob"</span><span class="p">,</span> <span class="s2">"30"</span><span class="p">,</span> <span class="s2">"Los Angeles"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Charlie"</span><span class="p">,</span> <span class="s2">"35"</span><span class="p">,</span> <span class="s2">"Chicago"</span><span class="p">]</span>
+<span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"people.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">csv_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"CSV file written!"</span><span class="p">)</span>
+
+<span class="c1"># Reading CSV data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">CSV file content:"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"people.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>File written successfully!
+File content:
+Hello, World!
+This is a test file.
+Python is awesome!
+
+
+Reading line by line:
+Line 1: Hello, World!
+Line 2: This is a test file.
+Line 3: Python is awesome!
+
+Line appended!
+
+Updated file content:
+Hello, World!
+This is a test file.
+Python is awesome!
+This line was appended.
+
+CSV file written!
+
+CSV file content:
+['Name', 'Age', 'City']
+['Alice', '25', 'New York']
+['Bob', '30', 'Los Angeles']
+['Charlie', '35', 'Chicago']
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="8.-Exception-Handling">8. Exception Handling<a class="anchor-link" href="#8.-Exception-Handling">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Basic exception handling</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">safe_divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Error: Cannot divide by zero!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Error: Invalid input types!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_divide</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">))</span>
+
+<span class="c1"># Multiple exception types</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_list</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">lst</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error: Index </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> is out of range!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Error: Invalid index type!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_list</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">))</span>
+
+<span class="c1"># try-except-else-finally</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"File read successfully!"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error: File '</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">' not found!"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error: Permission denied to read '</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unexpected error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"No errors occurred during file reading"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"File closed successfully"</span><span class="p">)</span>
+
+<span class="c1"># This will show the error handling</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">process_file</span><span class="p">(</span><span class="s2">"nonexistent.txt"</span><span class="p">)</span>
+
+<span class="c1"># Custom exceptions</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_age</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CustomError</span><span class="p">(</span><span class="s2">"Age cannot be negative!"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">150</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CustomError</span><span class="p">(</span><span class="s2">"Age seems unrealistic!"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">validate_age</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">CustomError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Custom error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">validate_age</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Age validation passed!"</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">CustomError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Custom error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>5.0
+Error: Cannot divide by zero!
+None
+Error: Invalid input types!
+None
+3
+Error: Index 10 is out of range!
+None
+Error: Invalid index type!
+None
+Error: File 'nonexistent.txt' not found!
+Custom error: Age cannot be negative!
+Age validation passed!
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="9.-Regular-Expressions">9. Regular Expressions<a class="anchor-link" href="#9.-Regular-Expressions">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="c1"># Basic pattern matching</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"The quick brown fox jumps over the lazy dog"</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"fox"</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found '</span><span class="si">{</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span><span class="si">}</span><span class="s2">' at position </span><span class="si">{</span><span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Pattern not found"</span><span class="p">)</span>
+
+<span class="c1"># Finding all matches</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"\b\w</span><span class="si">{4}</span><span class="s2">\b"</span>  <span class="c1"># 4-letter words</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"4-letter words: </span><span class="si">{</span><span class="n">matches</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Email validation</span>
+<span class="n">email_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"</span>
+<span class="n">emails</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"user@example.com"</span><span class="p">,</span> <span class="s2">"invalid.email"</span><span class="p">,</span> <span class="s2">"test@domain.co.uk"</span><span class="p">,</span> <span class="s2">"not-an-email"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">emails</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">email_pattern</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">' is a valid email"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">' is not a valid email"</span><span class="p">)</span>
+
+<span class="c1"># Phone number pattern</span>
+<span class="n">phone_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"\(?\d</span><span class="si">{3}</span><span class="s2">\)?[-.\s]?\d</span><span class="si">{3}</span><span class="s2">[-.\s]?\d</span><span class="si">{4}</span><span class="s2">"</span>
+<span class="n">phone_text</span> <span class="o">=</span> <span class="s2">"Call me at (555) 123-4567 or 555.123.4567 or 555-123-4567"</span>
+<span class="n">phone_numbers</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">phone_pattern</span><span class="p">,</span> <span class="n">phone_text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Phone numbers found: </span><span class="si">{</span><span class="n">phone_numbers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Substitution</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"The price is $19.99 and $29.99"</span>
+<span class="n">new_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\$\d+\.\d</span><span class="si">{2}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"PRICE"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"After substitution: </span><span class="si">{</span><span class="n">new_text</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Splitting with regex</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">"apple,banana;cherry:date"</span>
+<span class="n">fruits</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[,;:]"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Split fruits: </span><span class="si">{</span><span class="n">fruits</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Groups and capturing</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"(\d</span><span class="si">{4}</span><span class="s2">)-(\d</span><span class="si">{2}</span><span class="s2">)-(\d</span><span class="si">{2}</span><span class="s2">)"</span>
+<span class="n">date_text</span> <span class="o">=</span> <span class="s2">"Today is 2024-01-15"</span>
+<span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">date_text</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Year: </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">, Month: </span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">, Day: </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Found 'fox' at position 16
+4-letter words: ['over', 'lazy']
+'user@example.com' is a valid email
+'invalid.email' is not a valid email
+'test@domain.co.uk' is a valid email
+'not-an-email' is not a valid email
+Phone numbers found: ['(555) 123-4567', '555.123.4567', '555-123-4567']
+Original: The price is $19.99 and $29.99
+After substitution: The price is PRICE and PRICE
+Split fruits: ['apple', 'banana', 'cherry', 'date']
+Year: 2024, Month: 01, Day: 15
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="10.-Working-with-Dates-and-Time">10. Working with Dates and Time<a class="anchor-link" href="#10.-Working-with-Dates-and-Time">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">time_module</span>
+
+<span class="c1"># Current date and time</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">today</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">current_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="n">now</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Current datetime: </span><span class="si">{</span><span class="n">now</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Today's date: </span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Current time: </span><span class="si">{</span><span class="n">current_time</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Creating specific dates and times</span>
+<span class="n">birthday</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">appointment</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Birthday: </span><span class="si">{</span><span class="n">birthday</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Appointment: </span><span class="si">{</span><span class="n">appointment</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Date arithmetic</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">today</span> <span class="o">-</span> <span class="n">birthday</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Age in days: </span><span class="si">{</span><span class="n">age</span><span class="o">.</span><span class="n">days</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Age in years: </span><span class="si">{</span><span class="n">age</span><span class="o">.</span><span class="n">days</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">365</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Adding/subtracting time</span>
+<span class="n">future_date</span> <span class="o">=</span> <span class="n">today</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">past_date</span> <span class="o">=</span> <span class="n">today</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"30 days from now: </span><span class="si">{</span><span class="n">future_date</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"2 weeks ago: </span><span class="si">{</span><span class="n">past_date</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Formatting dates</span>
+<span class="n">formatted_date</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Formatted date: </span><span class="si">{</span><span class="n">formatted_date</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Parsing dates from strings</span>
+<span class="n">date_string</span> <span class="o">=</span> <span class="s2">"2024-01-15 14:30:00"</span>
+<span class="n">parsed_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Parsed date: </span><span class="si">{</span><span class="n">parsed_date</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Time zones (basic example)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Current timestamp: </span><span class="si">{</span><span class="n">now</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Sleep example (commented out to avoid delay)</span>
+<span class="c1"># print("Sleeping for 2 seconds...")</span>
+<span class="c1"># time_module.sleep(2)</span>
+<span class="c1"># print("Awake!")</span>
+
+<span class="c1"># Date comparison</span>
+<span class="n">date1</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">date2</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">date1</span> <span class="o">&lt;</span> <span class="n">date2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">date1</span><span class="si">}</span><span class="s2"> is before </span><span class="si">{</span><span class="n">date2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">date1</span><span class="si">}</span><span class="s2"> is after </span><span class="si">{</span><span class="n">date2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Working with weekdays</span>
+<span class="n">weekdays</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Monday"</span><span class="p">,</span> <span class="s2">"Tuesday"</span><span class="p">,</span> <span class="s2">"Wednesday"</span><span class="p">,</span> <span class="s2">"Thursday"</span><span class="p">,</span> <span class="s2">"Friday"</span><span class="p">,</span> <span class="s2">"Saturday"</span><span class="p">,</span> <span class="s2">"Sunday"</span><span class="p">]</span>
+<span class="n">today_weekday</span> <span class="o">=</span> <span class="n">weekdays</span><span class="p">[</span><span class="n">today</span><span class="o">.</span><span class="n">weekday</span><span class="p">()]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Today is </span><span class="si">{</span><span class="n">today_weekday</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Days until next Monday</span>
+<span class="n">days_until_monday</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">today</span><span class="o">.</span><span class="n">weekday</span><span class="p">())</span> <span class="o">%</span> <span class="mi">7</span>
+<span class="k">if</span> <span class="n">days_until_monday</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">days_until_monday</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Days until next Monday: </span><span class="si">{</span><span class="n">days_until_monday</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Current datetime: 2025-09-07 21:55:56.626558
+Today's date: 2025-09-07
+Current time: 21:55:56
+Birthday: 1990-05-15
+Appointment: 2024-03-15 14:30:00
+Age in days: 12899
+Age in years: 35
+30 days from now: 2025-10-07
+2 weeks ago: 2025-08-24
+Formatted date: 2025-09-07 21:55:56
+Parsed date: 2024-01-15 14:30:00
+Current timestamp: 1757307356.626558
+2024-01-15 is before 2024-01-20
+Today is Sunday
+Days until next Monday: 1
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
