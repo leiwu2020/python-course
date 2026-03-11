@@ -1,0 +1,14 @@
+# Core scientific Python stack
+numpy
+pandas
+scipy
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine learning
+scikit-learn
+
+# Optional (common for notebooks, not strictly required to run the .py code)
+jupyter
